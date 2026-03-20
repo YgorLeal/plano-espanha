@@ -1,0 +1,75 @@
+{
+  "nav": {
+    "calculator": "Calculadora",
+    "visaSimulator": "Simulador de Visto",
+    "blog": "Blog",
+    "ctaButton": "Calcule Grátis"
+  },
+  "hero": {
+    "badge": "Ferramentas gratuitas para brasileiros",
+    "title": "Planeje sua mudança para a Espanha",
+    "subtitle": "Calculadora de custo de vida, simulador de visto e guias completos. Tudo o que você precisa para tomar a melhor decisão.",
+    "cta": "Calcular Custo de Vida",
+    "ctaSecondary": "Simular meu Visto"
+  },
+  "features": {
+    "title": "Ferramentas que nenhum outro site oferece",
+    "calculator": {
+      "title": "Calculadora de Custo de Vida",
+      "description": "Compare o custo real de 7 cidades espanholas para o seu perfil: sozinho, casal ou família."
+    },
+    "visa": {
+      "title": "Simulador de Visto",
+      "description": "Responda 10 perguntas e descubra quais tipos de visto se encaixam no seu perfil."
+    },
+    "blog": {
+      "title": "Guias Atualizados",
+      "description": "Conteúdo prático sobre documentos, saúde, educação, trabalho e vida cotidiana na Espanha."
+    }
+  },
+  "calculator": {
+    "title": "Calculadora de Custo de Vida",
+    "subtitle": "Descubra quanto custa viver na Espanha para o seu perfil",
+    "stepCity": "Escolha a cidade",
+    "stepProfile": "Seu perfil",
+    "stepResult": "Resultado",
+    "cities": {
+      "madrid": "Madrid",
+      "barcelona": "Barcelona",
+      "valencia": "Valência",
+      "sevilla": "Sevilha",
+      "granada": "Granada",
+      "malaga": "Málaga",
+      "bilbao": "Bilbao"
+    },
+    "profiles": {
+      "solo": "Sozinho(a)",
+      "couple": "Casal",
+      "family": "Família (2 adultos + 1 filho)"
+    },
+    "categories": {
+      "rent": "Aluguel",
+      "groceries": "Supermercado",
+      "transport": "Transporte",
+      "health": "Saúde",
+      "leisure": "Lazer",
+      "total": "Total estimado"
+    },
+    "resultCta": "Receber relatório completo por email",
+    "emailPlaceholder": "seu@email.com",
+    "sendButton": "Enviar relatório",
+    "perMonth": "/mês"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Guias e dicas para sua mudança para a Espanha",
+    "readMore": "Ler mais",
+    "backToBlog": "Voltar ao blog"
+  },
+  "footer": {
+    "description": "Ferramentas gratuitas para brasileiros que querem planejar sua mudança para a Espanha com clareza e segurança.",
+    "tools": "Ferramentas",
+    "contact": "Contato",
+    "rights": "Todos os direitos reservados."
+  }
+}

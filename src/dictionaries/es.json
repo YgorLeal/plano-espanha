@@ -1,0 +1,75 @@
+{
+  "nav": {
+    "calculator": "Calculadora",
+    "visaSimulator": "Simulador de Visado",
+    "blog": "Blog",
+    "ctaButton": "Calcula Gratis"
+  },
+  "hero": {
+    "badge": "Herramientas gratuitas para brasileños",
+    "title": "Planifica tu mudanza a España",
+    "subtitle": "Calculadora de coste de vida, simulador de visado y guías completas. Todo lo que necesitas para tomar la mejor decisión.",
+    "cta": "Calcular Coste de Vida",
+    "ctaSecondary": "Simular mi Visado"
+  },
+  "features": {
+    "title": "Herramientas que ningún otro sitio ofrece",
+    "calculator": {
+      "title": "Calculadora de Coste de Vida",
+      "description": "Compara el coste real de 7 ciudades españolas para tu perfil: solo, en pareja o en familia."
+    },
+    "visa": {
+      "title": "Simulador de Visado",
+      "description": "Responde 10 preguntas y descubre qué tipos de visado se adaptan a tu perfil."
+    },
+    "blog": {
+      "title": "Guías Actualizadas",
+      "description": "Contenido práctico sobre documentos, salud, educación, trabajo y vida cotidiana en España."
+    }
+  },
+  "calculator": {
+    "title": "Calculadora de Coste de Vida",
+    "subtitle": "Descubre cuánto cuesta vivir en España para tu perfil",
+    "stepCity": "Elige la ciudad",
+    "stepProfile": "Tu perfil",
+    "stepResult": "Resultado",
+    "cities": {
+      "madrid": "Madrid",
+      "barcelona": "Barcelona",
+      "valencia": "Valencia",
+      "sevilla": "Sevilla",
+      "granada": "Granada",
+      "malaga": "Málaga",
+      "bilbao": "Bilbao"
+    },
+    "profiles": {
+      "solo": "Solo/a",
+      "couple": "Pareja",
+      "family": "Familia (2 adultos + 1 hijo)"
+    },
+    "categories": {
+      "rent": "Alquiler",
+      "groceries": "Supermercado",
+      "transport": "Transporte",
+      "health": "Salud",
+      "leisure": "Ocio",
+      "total": "Total estimado"
+    },
+    "resultCta": "Recibir informe completo por email",
+    "emailPlaceholder": "tu@email.com",
+    "sendButton": "Enviar informe",
+    "perMonth": "/mes"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Guías y consejos para tu mudanza a España",
+    "readMore": "Leer más",
+    "backToBlog": "Volver al blog"
+  },
+  "footer": {
+    "description": "Herramientas gratuitas para brasileños que quieren planificar su mudanza a España con claridad y seguridad.",
+    "tools": "Herramientas",
+    "contact": "Contacto",
+    "rights": "Todos los derechos reservados."
+  }
+}

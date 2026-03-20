@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply text-gray-800 antialiased;
+  }
+}
+
+@layer components {
+  .prose h2 {
+    @apply text-2xl font-bold mt-8 mb-4 text-gray-900;
+  }
+  .prose h3 {
+    @apply text-xl font-semibold mt-6 mb-3 text-gray-900;
+  }
+  .prose p {
+    @apply mb-4 leading-relaxed text-gray-700;
+  }
+  .prose ul {
+    @apply list-disc pl-6 mb-4 space-y-2;
+  }
+  .prose ol {
+    @apply list-decimal pl-6 mb-4 space-y-2;
+  }
+  .prose a {
+    @apply text-brand-600 underline hover:text-brand-700;
+  }
+  .prose blockquote {
+    @apply border-l-4 border-brand-300 pl-4 italic text-gray-600 my-4;
+  }
+  .prose img {
+    @apply rounded-lg my-6;
+  }
+  .prose strong {
+    @apply font-semibold text-gray-900;
+  }
+}

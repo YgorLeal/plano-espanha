@@ -1,0 +1,75 @@
+{
+  "nav": {
+    "calculator": "Calculator",
+    "visaSimulator": "Visa Simulator",
+    "blog": "Blog",
+    "ctaButton": "Calculate Free"
+  },
+  "hero": {
+    "badge": "Free tools for Brazilians",
+    "title": "Plan your move to Spain",
+    "subtitle": "Cost of living calculator, visa simulator and complete guides. Everything you need to make the best decision.",
+    "cta": "Calculate Cost of Living",
+    "ctaSecondary": "Simulate my Visa"
+  },
+  "features": {
+    "title": "Tools no other site offers",
+    "calculator": {
+      "title": "Cost of Living Calculator",
+      "description": "Compare the real cost of 7 Spanish cities for your profile: solo, couple or family."
+    },
+    "visa": {
+      "title": "Visa Simulator",
+      "description": "Answer 10 questions and find out which visa types fit your profile."
+    },
+    "blog": {
+      "title": "Updated Guides",
+      "description": "Practical content about documents, health, education, work and daily life in Spain."
+    }
+  },
+  "calculator": {
+    "title": "Cost of Living Calculator",
+    "subtitle": "Find out how much it costs to live in Spain for your profile",
+    "stepCity": "Choose the city",
+    "stepProfile": "Your profile",
+    "stepResult": "Result",
+    "cities": {
+      "madrid": "Madrid",
+      "barcelona": "Barcelona",
+      "valencia": "Valencia",
+      "sevilla": "Seville",
+      "granada": "Granada",
+      "malaga": "Malaga",
+      "bilbao": "Bilbao"
+    },
+    "profiles": {
+      "solo": "Solo",
+      "couple": "Couple",
+      "family": "Family (2 adults + 1 child)"
+    },
+    "categories": {
+      "rent": "Rent",
+      "groceries": "Groceries",
+      "transport": "Transport",
+      "health": "Health",
+      "leisure": "Leisure",
+      "total": "Estimated total"
+    },
+    "resultCta": "Get full report by email",
+    "emailPlaceholder": "your@email.com",
+    "sendButton": "Send report",
+    "perMonth": "/month"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Guides and tips for your move to Spain",
+    "readMore": "Read more",
+    "backToBlog": "Back to blog"
+  },
+  "footer": {
+    "description": "Free tools for Brazilians who want to plan their move to Spain with clarity and confidence.",
+    "tools": "Tools",
+    "contact": "Contact",
+    "rights": "All rights reserved."
+  }
+}

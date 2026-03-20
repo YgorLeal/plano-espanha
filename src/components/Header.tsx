@@ -5,12 +5,19 @@ import { useState } from "react";
 import { Locale } from "@/lib/i18n";
 
 const labels: Record<Locale, { calc: string; visa: string; blog: string; cta: string }> = {
-  pt: { calc: "Calculadora", visa: "Simulador de Visto", blog: "Blog", cta: "Calcule Grátis" },
-  es: { calc: "Calculadora", visa: "Simulador de Visado", blog: "Blog", cta: "Calcula Gratis" },
-  en: { calc: "Calculator", visa: "Visa Simulator", blog: "Blog", cta: "Calculate Free" },
+  pt: { calc: "Calculadora", visa: "Simulador de Visto", blog: "Blog", cta: "Fale Conosco" },
+  es: { calc: "Calculadora", visa: "Simulador de Visado", blog: "Blog", cta: "Contactar" },
+  en: { calc: "Calculator", visa: "Visa Simulator", blog: "Blog", cta: "Contact Us" },
 };
 
-const langNames: Record<Locale, string> = { pt: "PT", es: "ES", en: "EN" };
+const languages: Record<
+  Locale,
+  { label: string; flag: string; ariaLabel: string }
+> = {
+  pt: { label: "PT", flag: "🇧🇷", ariaLabel: "Português" },
+  es: { label: "ES", flag: "🇪🇸", ariaLabel: "Español" },
+  en: { label: "EN", flag: "🇺🇸", ariaLabel: "English" },
+};
 
 export default function Header({ lang }: { lang: Locale }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -42,23 +49,30 @@ export default function Header({ lang }: { lang: Locale }) {
               <Link
                 key={l}
                 href={`/${l}`}
-                className={`text-[10px] font-bold px-2 py-1 rounded transition-all ${
+                aria-label={languages[l].ariaLabel}
+                className={`inline-flex items-center gap-1.5 text-[10px] font-bold px-2.5 py-1.5 rounded transition-all ${
                   l === lang
                     ? "bg-white text-brand-600 shadow-sm"
                     : "text-gray-500 hover:text-gray-700"
                 }`}
               >
-                {langNames[l]}
+                <span aria-hidden="true">{languages[l].flag}</span>
+                <span>{languages[l].label}</span>
               </Link>
             ))}
           </div>
 
-          <Link
-            href={`/${lang}/calculadora`}
-            className="bg-brand-600 text-white text-[13px] font-bold px-6 py-3 rounded hover:bg-brand-700 transition-all uppercase tracking-widest shadow-md hover:shadow-lg active:scale-95"
+          <a
+            href="https://wa.me/5511999999999"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-brand-600 text-white text-[13px] font-bold px-6 py-3 rounded hover:bg-brand-700 transition-all uppercase tracking-widest shadow-md hover:shadow-lg active:scale-95 flex items-center gap-2"
           >
+            <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+              <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.407 3.481s3.48 5.223 3.48 8.405c-.003 6.556-5.338 11.892-11.893 11.892-1.997-.001-3.951-.5-5.688-1.448l-6.3 1.656zm6.29-4.113l.353.21c1.547.919 3.338 1.403 5.16 1.404h.005c5.454 0 9.893-4.438 9.895-9.895.001-2.645-1.027-5.131-2.895-6.999s-4.355-2.896-6.998-2.897c-5.455 0-9.893 4.439-9.895 9.897-.001 1.922.553 3.791 1.599 5.402l.231.356-.99 3.614 3.707-.972zm11.234-7.147c-.287-.144-1.696-.838-1.958-.933s-.454-.144-.645.144-.74.933-.906 1.123-.334.215-.621.071c-.287-.144-1.213-.447-2.31-1.428-.854-.762-1.43-1.703-1.598-1.99-.167-.287-.018-.442.126-.585.13-.129.287-.335.43-.502.143-.167.191-.287.287-.478s.048-.359-.024-.502-.645-1.554-.885-2.129c-.233-.561-.471-.484-.645-.493l-.55-.007c-.191 0-.501.072-.764.359s-1.003.98-1.003 2.391 1.027 2.822 1.17 3.013c.143.191 2.021 3.086 4.897 4.329.684.296 1.218.473 1.635.606.687.218 1.312.187 1.807.113.552-.083 1.696-.693 1.935-1.363s.239-1.244.167-1.363-.263-.215-.55-.359z"/>
+            </svg>
             {t.cta}
-          </Link>
+          </a>
         </nav>
 
         <button className="md:hidden p-2 text-gray-900" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
@@ -79,12 +93,33 @@ export default function Header({ lang }: { lang: Locale }) {
           <Link href={`/${lang}/blog`} className="block text-gray-700 font-medium" onClick={() => setMenuOpen(false)}>{t.blog}</Link>
           <div className="flex gap-2 pt-2">
             {(["pt", "es", "en"] as Locale[]).map((l) => (
-              <Link key={l} href={`/${l}`} className={`text-sm font-medium px-3 py-1.5 rounded ${l === lang ? "bg-brand-600 text-white" : "bg-gray-100 text-gray-600"}`}>
-                {langNames[l]}
+              <Link
+                key={l}
+                href={`/${l}`}
+                aria-label={languages[l].ariaLabel}
+                className={`inline-flex items-center gap-2 text-sm font-medium px-3 py-1.5 rounded ${
+                  l === lang
+                    ? "bg-brand-600 text-white"
+                    : "bg-gray-100 text-gray-600"
+                }`}
+              >
+                <span aria-hidden="true">{languages[l].flag}</span>
+                <span>{languages[l].label}</span>
               </Link>
             ))}
           </div>
-          <Link href={`/${lang}/calculadora`} className="block bg-brand-600 text-white text-center font-semibold px-5 py-2.5 rounded-lg" onClick={() => setMenuOpen(false)}>{t.cta}</Link>
+          <a
+            href="https://wa.me/5511999999999"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block bg-brand-600 text-white text-center font-semibold px-5 py-3 rounded-lg flex items-center justify-center gap-2"
+            onClick={() => setMenuOpen(false)}
+          >
+            <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+              <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.407 3.481s3.48 5.223 3.48 8.405c-.003 6.556-5.338 11.892-11.893 11.892-1.997-.001-3.951-.5-5.688-1.448l-6.3 1.656zm6.29-4.113l.353.21c1.547.919 3.338 1.403 5.16 1.404h.005c5.454 0 9.893-4.438 9.895-9.895.001-2.645-1.027-5.131-2.895-6.999s-4.355-2.896-6.998-2.897c-5.455 0-9.893 4.439-9.895 9.897-.001 1.922.553 3.791 1.599 5.402l.231.356-.99 3.614 3.707-.972zm11.234-7.147c-.287-.144-1.696-.838-1.958-.933s-.454-.144-.645.144-.74.933-.906 1.123-.334.215-.621.071c-.287-.144-1.213-.447-2.31-1.428-.854-.762-1.43-1.703-1.598-1.99-.167-.287-.018-.442.126-.585.13-.129.287-.335.43-.502.143-.167.191-.287.287-.478s.048-.359-.024-.502-.645-1.554-.885-2.129c-.233-.561-.471-.484-.645-.493l-.55-.007c-.191 0-.501.072-.764.359s-1.003.98-1.003 2.391 1.027 2.822 1.17 3.013c.143.191 2.021 3.086 4.897 4.329.684.296 1.218.473 1.635.606.687.218 1.312.187 1.807.113.552-.083 1.696-.693 1.935-1.363s.239-1.244.167-1.363-.263-.215-.55-.359z"/>
+            </svg>
+            {t.cta}
+          </a>
         </nav>
       )}
     </header>

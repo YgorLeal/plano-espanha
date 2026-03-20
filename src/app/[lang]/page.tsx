@@ -1,8 +1,45 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { getDictionary, Locale } from "@/lib/i18n";
 import { getAllPosts } from "@/lib/blogEdge";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const runtime = 'edge';
+const homeMetadata: Record<Locale, { title: string; description: string }> = {
+  pt: {
+    title: "Planeje sua mudança para a Espanha",
+    description:
+      "Calculadora de custo de vida, simulador de visto e guias práticos para brasileiros que querem morar na Espanha.",
+  },
+  es: {
+    title: "Planifica tu mudanza a Espana",
+    description:
+      "Calculadora de coste de vida, simulador de visado y guias practicas para brasileños que quieren vivir en Espana.",
+  },
+  en: {
+    title: "Plan your move to Spain",
+    description:
+      "Cost of living calculator, visa simulator and practical guides for Brazilians planning to live in Spain.",
+  },
+};
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { lang: Locale };
+}): Promise<Metadata> {
+  const meta = homeMetadata[params.lang];
+
+  return buildPageMetadata({
+    locale: params.lang,
+    title: meta.title,
+    description: meta.description,
+    pathByLocale: {
+      pt: "/pt/",
+      es: "/es/",
+      en: "/en/",
+    },
+  });
+}
 
 export default async function Home({ params }: { params: { lang: Locale } }) {
   const t = await getDictionary(params.lang);
@@ -11,46 +48,54 @@ export default async function Home({ params }: { params: { lang: Locale } }) {
   return (
     <>
       {/* Hero */}
-      <section className="relative bg-gradient-to-br from-brand-50 via-white to-orange-50 overflow-hidden">
-        <div className="max-w-6xl mx-auto px-4 py-20 md:py-32">
-          <div className="max-w-3xl">
-            <span className="inline-block bg-brand-100 text-brand-700 text-sm font-medium px-4 py-1.5 rounded-full mb-6">
+      <section className="relative bg-gray-50 overflow-hidden border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-40">
+          <div className="max-w-4xl">
+            <span className="inline-block bg-brand-600 text-white text-[10px] font-black px-3 py-1 uppercase tracking-[0.2em] mb-8">
               {t.hero.badge}
             </span>
-            <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight mb-6">
+            <h1 className="text-5xl md:text-7xl font-black text-gray-900 leading-[1.1] mb-8 uppercase tracking-tighter">
               {t.hero.title.split("Espanha")[0]}
               <span className="text-brand-600">Espanha</span>
             </h1>
-            <p className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed max-w-2xl">
+            <p className="text-xl md:text-2xl text-gray-600 mb-12 leading-relaxed max-w-3xl font-medium">
               {t.hero.subtitle}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-5">
               <Link
                 href={`/${params.lang}/calculadora`}
-                className="bg-brand-600 text-white font-semibold px-8 py-4 rounded-xl text-center hover:bg-brand-700 transition shadow-lg shadow-brand-200"
+                className="bg-brand-600 text-white font-bold px-10 py-5 rounded shadow-xl hover:bg-brand-700 transition-all uppercase tracking-widest text-sm text-center active:scale-95"
               >
                 {t.hero.cta}
               </Link>
               <Link
                 href={`/${params.lang}/simulador`}
-                className="border-2 border-gray-300 text-gray-700 font-semibold px-8 py-4 rounded-xl text-center hover:border-brand-400 hover:text-brand-600 transition"
+                className="bg-white border-2 border-gray-200 text-gray-900 font-bold px-10 py-5 rounded hover:border-brand-600 hover:text-brand-600 transition-all uppercase tracking-widest text-sm text-center active:scale-95"
               >
                 {t.hero.ctaSecondary}
               </Link>
             </div>
           </div>
         </div>
-        {/* Decorative */}
-        <div className="absolute top-20 right-0 w-96 h-96 bg-brand-100 rounded-full opacity-30 blur-3xl -z-10" />
-        <div className="absolute bottom-0 left-1/4 w-64 h-64 bg-yellow-100 rounded-full opacity-40 blur-3xl -z-10" />
+        {/* Subtle Spanish Flag Accent */}
+        <div className="absolute top-0 right-0 w-1/3 h-full opacity-[0.03] pointer-events-none select-none overflow-hidden hidden lg:block">
+           <div className="h-1/4 bg-brand-600" />
+           <div className="h-2/4 bg-accent-yellow" />
+           <div className="h-1/4 bg-brand-600" />
+        </div>
       </section>
 
       {/* Features */}
-      <section className="max-w-6xl mx-auto px-4 py-20">
-        <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12">
-          {t.features.title}
-        </h2>
-        <div className="grid md:grid-cols-3 gap-8">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+          <div className="max-w-2xl">
+            <h2 className="text-4xl md:text-5xl font-black text-gray-900 uppercase tracking-tighter mb-4">
+              {t.features.title}
+            </h2>
+            <div className="w-20 h-2 bg-brand-600" />
+          </div>
+        </div>
+        <div className="grid md:grid-cols-3 gap-10">
           {[
             {
               icon: "📊",
@@ -71,15 +116,21 @@ export default async function Home({ params }: { params: { lang: Locale } }) {
             <Link
               key={i}
               href={feature.href}
-              className="group bg-white border border-gray-100 rounded-2xl p-8 hover:shadow-xl hover:border-brand-200 transition-all duration-300"
+              className="group bg-white border-b-4 border-gray-100 p-10 hover:border-brand-600 hover:shadow-2xl transition-all duration-500 flex flex-col h-full"
             >
-              <div className="text-4xl mb-4">{feature.icon}</div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-brand-600 transition">
+              <div className="text-5xl mb-8 group-hover:scale-110 transition-transform duration-500 w-fit">{feature.icon}</div>
+              <h3 className="text-2xl font-black text-gray-900 mb-4 group-hover:text-brand-600 transition-colors uppercase tracking-tight">
                 {feature.title}
               </h3>
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-gray-600 leading-relaxed text-lg mb-8 flex-grow">
                 {feature.description}
               </p>
+              <div className="text-brand-600 font-bold uppercase tracking-widest text-xs flex items-center gap-2">
+                Saiba mais 
+                <svg className="w-4 h-4 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </div>
             </Link>
           ))}
         </div>

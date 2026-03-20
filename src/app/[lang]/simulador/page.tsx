@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Locale } from "@/lib/i18n";
-
-export const runtime = 'edge';
+import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo";
 
 const content: Record<Locale, { title: string; subtitle: string; soon: string; cta: string }> = {
   pt: {
@@ -24,25 +24,67 @@ const content: Record<Locale, { title: string; subtitle: string; soon: string; c
   },
 };
 
+const metadataByLocale: Record<Locale, { title: string; description: string }> = {
+  pt: {
+    title: "Simulador de visto para a Espanha",
+    description:
+      "Descubra quais tipos de visto combinam com o seu perfil para morar legalmente na Espanha.",
+  },
+  es: {
+    title: "Simulador de visado para Espana",
+    description:
+      "Descubre qué tipos de visado encajan con tu perfil para vivir legalmente en Espana.",
+  },
+  en: {
+    title: "Spain visa simulator",
+    description:
+      "Find out which visa paths fit your profile for moving legally to Spain.",
+  },
+};
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { lang: Locale };
+}): Promise<Metadata> {
+  const meta = metadataByLocale[params.lang];
+
+  return buildPageMetadata({
+    locale: params.lang,
+    title: meta.title,
+    description: meta.description,
+    pathByLocale: {
+      pt: "/pt/simulador/",
+      es: "/es/simulador/",
+      en: "/en/simulador/",
+    },
+  });
+}
+
 export default function SimuladorPage({ params }: { params: { lang: Locale } }) {
   const t = content[params.lang];
 
   return (
-    <section className="max-w-4xl mx-auto px-4 py-16 text-center">
-      <div className="bg-gradient-to-br from-brand-50 to-orange-50 rounded-2xl p-12 border border-brand-100">
-        <div className="text-5xl mb-6">🛂</div>
-        <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3">{t.title}</h1>
-        <p className="text-lg text-gray-600 mb-6">{t.subtitle}</p>
-        <div className="inline-block bg-yellow-100 text-yellow-800 text-sm font-medium px-4 py-2 rounded-full mb-6">
-          Em breve / Coming soon
+    <section className="max-w-4xl mx-auto px-4 py-24 text-center">
+      <div className="bg-white rounded-lg border-b-8 border-brand-600 p-16 shadow-2xl relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-2 bg-accent-yellow" />
+        <div className="text-7xl mb-10">🛂</div>
+        <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-4 uppercase tracking-tighter font-heading">{t.title}</h1>
+        <div className="w-20 h-2 bg-brand-600 mx-auto mb-10" />
+        <p className="text-xl text-gray-600 mb-10 font-medium">{t.subtitle}</p>
+        
+        <div className="bg-gray-900 text-white p-10 rounded shadow-xl mb-12 max-w-2xl mx-auto">
+          <div className="inline-block bg-brand-600 text-white text-[10px] font-black px-4 py-1.5 rounded-full mb-6 uppercase tracking-widest">
+             {params.lang === "pt" ? "Em desenvolvimento" : params.lang === "es" ? "En desarrollo" : "Under development"}
+          </div>
+          <p className="text-gray-400 font-medium leading-relaxed mb-10">{t.soon}</p>
+          <Link
+            href={`/${params.lang}/blog/qual-visto-espanha-brasileiro`}
+            className="inline-block bg-white text-gray-900 font-black px-10 py-5 rounded hover:bg-brand-600 hover:text-white transition-all uppercase tracking-widest text-sm active:scale-95 shadow-lg"
+          >
+            {t.cta}
+          </Link>
         </div>
-        <p className="text-gray-600 max-w-lg mx-auto mb-8">{t.soon}</p>
-        <Link
-          href={`/${params.lang}/blog/qual-visto-espanha-brasileiro`}
-          className="inline-block bg-brand-600 text-white font-semibold px-8 py-3 rounded-xl hover:bg-brand-700 transition"
-        >
-          {t.cta}
-        </Link>
       </div>
     </section>
   );

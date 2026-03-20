@@ -4,11 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "node scripts/prebuild-blog.mjs && next dev",
-    "build": "next build",
+    "build": "node scripts/prebuild-blog.mjs && next build",
     "start": "next start",
-    "pages:build": "node scripts/prebuild-blog.mjs && npx @cloudflare/next-on-pages",
-    "pages:dev": "npx wrangler pages dev .vercel/output/static --compatibility-date=2024-07-01 --compatibility-flag=nodejs_compat",
-    "pages:deploy": "npm run pages:build && npx wrangler pages deploy .vercel/output/static",
+    "pages:build": "npm run build",
+    "pages:dev": "npx wrangler dev",
+    "pages:deploy": "npm run build && npx wrangler deploy",
     "new-post": "node scripts/new-post.mjs"
   },
   "dependencies": {

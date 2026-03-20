@@ -5,16 +5,19 @@ module.exports = {
     extend: {
       colors: {
         brand: {
-          50: "#FFF7ED",
-          100: "#FFEDD5",
-          200: "#FED7AA",
-          300: "#FDBA74",
-          400: "#FB923C",
-          500: "#F97316",
-          600: "#EA580C",
-          700: "#C2410C",
-          800: "#9A3412",
-          900: "#7C2D12",
+          50: "#FFF5F5",
+          100: "#FFE3E3",
+          200: "#FFC9C9",
+          300: "#FFA8A8",
+          400: "#FF8787",
+          500: "#FA5252",
+          600: "#C62828",
+          700: "#A61E1E",
+          800: "#861818",
+          900: "#5F0E0E",
+        },
+        accent: {
+          yellow: "#FBC02D",
         },
         espanha: {
           red: "#C60B1E",
@@ -23,6 +26,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
+        heading: ["Montserrat", "system-ui", "sans-serif"],
       },
     },
   },

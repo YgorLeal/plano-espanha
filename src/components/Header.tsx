@@ -17,35 +17,35 @@ export default function Header({ lang }: { lang: Locale }) {
   const t = labels[lang];
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-gray-100">
-      <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+    <header className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         <Link href={`/${lang}`} className="flex items-center gap-2">
-          <span className="text-2xl font-extrabold text-gray-900">
+          <span className="text-2xl font-black text-gray-900 tracking-tighter uppercase font-heading">
             Plano<span className="text-brand-600">Espanha</span>
           </span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-6">
-          <Link href={`/${lang}/calculadora`} className="text-sm font-medium text-gray-600 hover:text-brand-600 transition">
+        <nav className="hidden md:flex items-center gap-8">
+          <Link href={`/${lang}/calculadora`} className="text-[15px] font-semibold text-gray-700 hover:text-brand-600 transition-colors uppercase tracking-wide">
             {t.calc}
           </Link>
-          <Link href={`/${lang}/simulador`} className="text-sm font-medium text-gray-600 hover:text-brand-600 transition">
+          <Link href={`/${lang}/simulador`} className="text-[15px] font-semibold text-gray-700 hover:text-brand-600 transition-colors uppercase tracking-wide">
             {t.visa}
           </Link>
-          <Link href={`/${lang}/blog`} className="text-sm font-medium text-gray-600 hover:text-brand-600 transition">
+          <Link href={`/${lang}/blog`} className="text-[15px] font-semibold text-gray-700 hover:text-brand-600 transition-colors uppercase tracking-wide">
             {t.blog}
           </Link>
 
           {/* Language switcher */}
-          <div className="flex gap-1 border border-gray-200 rounded-lg overflow-hidden">
+          <div className="flex gap-0.5 bg-gray-100 p-1 rounded-md">
             {(["pt", "es", "en"] as Locale[]).map((l) => (
               <Link
                 key={l}
                 href={`/${l}`}
-                className={`text-xs font-medium px-2.5 py-1.5 transition ${
+                className={`text-[10px] font-bold px-2 py-1 rounded transition-all ${
                   l === lang
-                    ? "bg-brand-600 text-white"
-                    : "text-gray-500 hover:bg-gray-50"
+                    ? "bg-white text-brand-600 shadow-sm"
+                    : "text-gray-500 hover:text-gray-700"
                 }`}
               >
                 {langNames[l]}
@@ -55,13 +55,13 @@ export default function Header({ lang }: { lang: Locale }) {
 
           <Link
             href={`/${lang}/calculadora`}
-            className="bg-brand-600 text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-brand-700 transition"
+            className="bg-brand-600 text-white text-[13px] font-bold px-6 py-3 rounded hover:bg-brand-700 transition-all uppercase tracking-widest shadow-md hover:shadow-lg active:scale-95"
           >
             {t.cta}
           </Link>
         </nav>
 
-        <button className="md:hidden p-2" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
+        <button className="md:hidden p-2 text-gray-900" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             {menuOpen ? (
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

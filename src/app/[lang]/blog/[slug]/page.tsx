@@ -1,9 +1,9 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { getPostBySlug, getAllSlugs } from "@/lib/blogEdge";
 import { getDictionary, Locale, locales } from "@/lib/i18n";
 import { notFound } from "next/navigation";
-
-export const runtime = 'edge';
+import { buildBlogPostMetadata, localizePostContent } from "@/lib/seo";
 
 export async function generateStaticParams() {
   const slugs = getAllSlugs();
@@ -14,6 +14,23 @@ export async function generateStaticParams() {
     }
   }
   return params;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { lang: Locale; slug: string };
+}): Promise<Metadata> {
+  const post = getPostBySlug(params.slug);
+
+  if (!post) {
+    return {};
+  }
+
+  return buildBlogPostMetadata({
+    locale: params.lang,
+    post,
+  });
 }
 
 export default async function BlogPost({
@@ -55,7 +72,7 @@ export default async function BlogPost({
 
       <div
         className="prose max-w-none"
-        dangerouslySetInnerHTML={{ __html: post.content }}
+        dangerouslySetInnerHTML={{ __html: localizePostContent(post.content, params.lang) }}
       />
 
       {/* CTA */}

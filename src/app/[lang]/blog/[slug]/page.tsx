@@ -3,6 +3,8 @@ import { getPostBySlug, getAllSlugs } from "@/lib/blog";
 import { getDictionary, Locale, locales } from "@/lib/i18n";
 import { notFound } from "next/navigation";
 
+export const runtime = 'edge';
+
 export async function generateStaticParams() {
   const slugs = getAllSlugs();
   const params: { lang: string; slug: string }[] = [];

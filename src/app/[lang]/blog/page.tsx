@@ -2,6 +2,8 @@ import Link from "next/link";
 import { getAllPosts } from "@/lib/blog";
 import { getDictionary, Locale } from "@/lib/i18n";
 
+export const runtime = 'edge';
+
 export default async function BlogPage({ params }: { params: { lang: Locale } }) {
   const t = await getDictionary(params.lang);
   const posts = getAllPosts();

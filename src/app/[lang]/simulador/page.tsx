@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { Locale } from "@/lib/i18n";
 
+export const runtime = 'edge';
+
 const content: Record<Locale, { title: string; subtitle: string; soon: string; cta: string }> = {
   pt: {
     title: "Simulador de Visto",

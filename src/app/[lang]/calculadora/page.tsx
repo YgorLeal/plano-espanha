@@ -1,6 +1,8 @@
 import Calculator from "@/components/Calculator";
 import { Locale } from "@/lib/i18n";
 
+export const runtime = 'edge';
+
 const titles: Record<Locale, { title: string; subtitle: string }> = {
   pt: { title: "Calculadora de Custo de Vida", subtitle: "Descubra quanto custa viver na Espanha para o seu perfil" },
   es: { title: "Calculadora de Coste de Vida", subtitle: "Descubre cuánto cuesta vivir en España para tu perfil" },

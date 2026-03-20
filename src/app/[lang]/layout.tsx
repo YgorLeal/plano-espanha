@@ -19,6 +19,10 @@ export const metadata: Metadata = {
     "Calculadora de custo de vida, simulador de visto e guias completos para brasileiros que querem morar na Espanha.",
   applicationName: siteName,
   category: "Immigration",
+  icons: {
+    icon: "/favicon.png",
+    apple: "/favicon.png",
+  },
 };
 
 export default function LangLayout({

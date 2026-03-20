@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getPostBySlug, getAllSlugs } from "@/lib/blog";
+import { getPostBySlug, getAllSlugs } from "@/lib/blogEdge";
 import { getDictionary, Locale, locales } from "@/lib/i18n";
 import { notFound } from "next/navigation";
 

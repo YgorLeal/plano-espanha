@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getDictionary, Locale } from "@/lib/i18n";
-import { getAllPosts } from "@/lib/blog";
+import { getAllPosts } from "@/lib/blogEdge";
 
 export const runtime = 'edge';
 

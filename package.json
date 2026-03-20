@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "node scripts/prebuild-blog.mjs && next dev",
     "build": "next build",
     "start": "next start",
-    "pages:build": "npx @cloudflare/next-on-pages",
+    "pages:build": "node scripts/prebuild-blog.mjs && npx @cloudflare/next-on-pages",
     "pages:dev": "npx wrangler pages dev .vercel/output/static --compatibility-date=2024-07-01 --compatibility-flag=nodejs_compat",
     "pages:deploy": "npm run pages:build && npx wrangler pages deploy .vercel/output/static",
     "new-post": "node scripts/new-post.mjs"

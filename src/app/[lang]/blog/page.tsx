@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getAllPosts } from "@/lib/blog";
+import { getAllPosts } from "@/lib/blogEdge";
 import { getDictionary, Locale } from "@/lib/i18n";
 
 export const runtime = 'edge';

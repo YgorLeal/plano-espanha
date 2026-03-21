@@ -7,18 +7,19 @@
     "build": "node scripts/prebuild-blog.mjs && next build",
     "start": "next start",
     "pages:build": "npm run build",
-    "pages:dev": "npx wrangler pages dev out",
+    "pages:dev": "npx wrangler pages dev out --kv VIEWS",
     "new-post": "node scripts/new-post.mjs"
   },
   "dependencies": {
+    "gray-matter": "^4.0.3",
     "next": "14.2.15",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "gray-matter": "^4.0.3",
     "remark": "^15.0.1",
     "remark-html": "^16.0.1"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260317.1",
     "@types/node": "^22.0.0",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",

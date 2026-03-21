@@ -4,6 +4,7 @@ import { getPostBySlug, getAllSlugs } from "@/lib/blogEdge";
 import { getDictionary, Locale, locales } from "@/lib/i18n";
 import { notFound } from "next/navigation";
 import { buildBlogPostMetadata, localizePostContent } from "@/lib/seo";
+import ViewCounter from "@/components/ViewCounter";
 
 export async function generateStaticParams() {
   const slugs = getAllSlugs();
@@ -67,6 +68,13 @@ export default async function BlogPost({
             <span className="text-xs font-bold text-gray-500 uppercase tracking-tight">
               {new Date(post.date).toLocaleDateString(params.lang)}
             </span>
+          </div>
+          <div className="h-10 w-px bg-gray-100 mx-2" />
+          <div className="text-left">
+            <span className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] block mb-1">
+              {params.lang === "pt" ? "Visualizações" : params.lang === "es" ? "Visitas" : "Views"}
+            </span>
+            <ViewCounter slug={params.slug} lang={params.lang} />
           </div>
         </div>
 

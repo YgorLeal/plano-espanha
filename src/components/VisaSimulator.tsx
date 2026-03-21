@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Locale } from "@/lib/i18n";
 import { evaluateVisaProfile, getOfficialSources, getVisaCopy, type VisaInputs } from "@/lib/visaRules";
 import { getVisaSimulatorWidgetContent, type VisaSimulatorContent } from "@/lib/siteCopy";
+import ContentFeedback from "@/components/ContentFeedback";
 
 type Choice<Value extends string> = {
   value: Value;
@@ -292,6 +293,8 @@ export default function VisaSimulator({ lang }: { lang: Locale }) {
                   )}
                 </div>
               </div>
+
+              <ContentFeedback slug="simulator:result" lang={lang} />
 
               <div className="mt-auto">
                 <button

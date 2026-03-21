@@ -5,6 +5,7 @@ import { getDictionary, Locale, locales } from "@/lib/i18n";
 import { notFound } from "next/navigation";
 import { buildBlogPostMetadata, localizePostContent } from "@/lib/seo";
 import ViewCounter from "@/components/ViewCounter";
+import ContentFeedback from "@/components/ContentFeedback";
 
 export async function generateStaticParams() {
   const slugs = getAllSlugs();
@@ -98,6 +99,8 @@ export default async function BlogPost({
         className="prose max-w-none"
         dangerouslySetInnerHTML={{ __html: localizePostContent(post.content, params.lang) }}
       />
+
+      <ContentFeedback slug={`blog:${post.slug}`} lang={params.lang} />
 
       {/* CTA */}
       <div className="mt-12 bg-brand-50 rounded-xl p-8 text-center border border-brand-100">

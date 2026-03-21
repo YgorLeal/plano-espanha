@@ -4,6 +4,7 @@ import { useState } from "react";
 import { CityKey, ProfileKey, HousingKey, getCosts, costCategories } from "@/lib/costData";
 import { Locale } from "@/lib/i18n";
 import { getCalculatorWidgetContent } from "@/lib/siteCopy";
+import ContentFeedback from "@/components/ContentFeedback";
 
 const cityOrder: CityKey[] = ["madrid", "barcelona", "valencia", "sevilla", "granada", "malaga", "bilbao"];
 const profileOrder: ProfileKey[] = ["solo", "couple", "family"];
@@ -313,6 +314,8 @@ export default function Calculator({ lang }: { lang: Locale }) {
               <p className="text-[10px] font-black uppercase tracking-[0.24em] text-brand-600">{content.ui.shareSuccess}</p>
             ) : null}
           </div>
+
+          <ContentFeedback slug={`calculator:${city}:${profile}`} lang={lang} />
 
           <button
             type="button"

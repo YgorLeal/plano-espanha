@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Locale } from "@/lib/i18n";
 import { BlogPost } from "@/lib/blogEdge";
 
-export const siteUrl = "https://plano-espanha.touz.workers.dev";
+export const siteUrl = "https://planoespanha.com";
 export const siteName = "Plano Espanha";
 
 const localeLabels: Record<Locale, string> = {
@@ -109,4 +109,8 @@ export function buildBlogPostMetadata({
 
 export function localizePostContent(content: string, locale: Locale): string {
   return content.replace(/href="\/(calculadora|simulador|blog)(\/)?"/g, 'href="/' + locale + '/$1/"');
+}
+
+export function toJsonLd(data: unknown) {
+  return JSON.stringify(data);
 }

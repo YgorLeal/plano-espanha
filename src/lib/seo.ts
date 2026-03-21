@@ -4,7 +4,7 @@ import { BlogPost } from "@/lib/blogEdge";
 
 export const siteUrl = "https://planoespanha.com";
 export const siteName = "Plano Espanha";
-const defaultOgImage = "/og-image.png";
+const defaultOgImage = "/og-image.jpg";
 
 const localeLabels: Record<Locale, string> = {
   pt: "pt-BR",

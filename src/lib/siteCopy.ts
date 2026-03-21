@@ -582,6 +582,12 @@ export const visaSimulatorWidgetContent: Localized<VisaSimulatorContent> = {
     sourcesTitle: "Main official sources",
     sourceIntro:
       "These are the base pages used to calibrate the simulator. Open one of them if you want to validate a specific case.",
+    ui: {
+      start: "Start triage",
+      back: "Back",
+      next: "Continue",
+      step: "Step",
+    },
     resultLabels: {
       topMatch: "Best match",
       alternative: "Alternative",

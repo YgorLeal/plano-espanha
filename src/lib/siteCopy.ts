@@ -1047,8 +1047,89 @@ export const calculatorWidgetContent: Localized<CalculatorWidgetContent> = {
   },
 };
 
-export function getVisaRuleCopy(locale: Locale) {
-  return visaRuleCopy[locale];
+export type AboutPageContent = {
+  metadata: { title: string; description: string };
+  eyebrow: string;
+  title: string;
+  lead: string;
+  historyTitle: string;
+  historyBody: string;
+  missionTitle: string;
+  missionBody: string;
+  valuesTitle: string;
+  values: { title: string; body: string }[];
+  teamTitle: string;
+  teamBody: string;
+};
+
+export const aboutPageContent: Localized<AboutPageContent> = {
+  pt: {
+    metadata: {
+      title: "Quem Somos | Plano Espanha",
+      description: "Conheça a história do Plano Espanha e nossa missão de ajudar brasileiros a morarem legalmente na Espanha com planejamento e segurança.",
+    },
+    eyebrow: "Nossa História",
+    title: "Especialistas em imigração para a Espanha",
+    lead: "Ajudamos você a transformar o sonho de morar na Espanha em um projeto viável, seguro e planejado.",
+    historyTitle: "Como tudo começou",
+    historyBody: "O Plano Espanha nasceu da experiência real de quem viveu na pele os desafios da imigração. Percebemos que havia muita desinformação e recomendações genéricas. Decidimos criar uma plataforma que unisse dados oficiais, ferramentas interativas e suporte especializado para quem busca um caminho sério e legal.",
+    missionTitle: "Nossa Missão",
+    missionBody: "Nossa missão é democratizar o acesso a informações migratórias de qualidade, oferecendo ferramentas que tragam clareza financeira e jurídica para brasileiros que desejam iniciar uma nova vida na Europa.",
+    valuesTitle: "Nossos Valores",
+    values: [
+      { title: "Transparência", body: "Baseamos todas as nossas orientações em fontes oficiais e dados reais." },
+      { title: "Segurança", body: "Priorizamos rotas legais e seguras para garantir a tranquilidade dos nossos clientes." },
+      { title: "Inovação", body: "Usamos tecnologia para simplificar processos complexos através de simuladores e calculadoras." },
+    ],
+    teamTitle: "Nossa Equipe",
+    teamBody: "Contamos com uma rede de especialistas em imigração, consultores financeiros e brasileiros residentes na Espanha que compartilham um objetivo comum: o seu sucesso migratório.",
+  },
+  es: {
+    metadata: {
+      title: "Quiénes Somos | Plano Espanha",
+      description: "Conoce la historia de Plano Espanha y nuestra misión de ayudar a brasileños a vivir legalmente en España con planificación y seguridad.",
+    },
+    eyebrow: "Nuestra Historia",
+    title: "Especialistas en inmigración para España",
+    lead: "Te ayudamos a transformar el sueño de vivir en España en un proyecto viable, seguro y planificado.",
+    historyTitle: "Cómo empezó todo",
+    historyBody: "Plano Espanha nació de la experiencia real de quienes vivieron los desafíos de la inmigración. Notamos que había mucha desinformación y recomendaciones genéricas. Decidimos crear una plataforma que uniera datos oficiales, herramientas interactivas y soporte especializado para quienes buscan un camino serio y legal.",
+    missionTitle: "Nuestra Misión",
+    missionBody: "Nuestra misión es democratizar el acceso a información migratoria de calidad, ofreciendo herramientas que aporten claridad financiera y jurídica para brasileños que desean iniciar una nueva vida en Europa.",
+    valuesTitle: "Nuestros Valores",
+    values: [
+      { title: "Transparencia", body: "Basamos todas nuestras orientaciones en fuentes oficiales y datos reales." },
+      { title: "Seguridad", body: "Priorizamos rutas legales y seguras para garantizar la tranquilidad de nuestros clientes." },
+      { title: "Innovación", body: "Usamos tecnología para simplificar procesos complejos a través de simuladores y calculadoras." },
+    ],
+    teamTitle: "Nuestro Equipo",
+    teamBody: "Contamos con una red de especialistas en inmigración, consultores financieros y brasileños residentes en España que comparten un objetivo común: tu éxito migratorio.",
+  },
+  en: {
+    metadata: {
+      title: "About Us | Plano Espanha",
+      description: "Learn about the history of Plano Espanha and our mission to help Brazilians live legally in Spain with planning and security.",
+    },
+    eyebrow: "Our History",
+    title: "Experts in immigration to Spain",
+    lead: "We help you transform the dream of living in Spain into a viable, secure, and planned project.",
+    historyTitle: "How it all started",
+    historyBody: "Plano Espanha was born from the real experience of those who faced the challenges of immigration firsthand. We noticed there was too much misinformation and generic advice. We decided to create a platform that combines official data, interactive tools, and specialized support for those seeking a serious and legal path.",
+    missionTitle: "Our Mission",
+    missionBody: "Our mission is to democratize access to quality migration information, offering tools that bring financial and legal clarity to Brazilians wishing to start a new life in Europe.",
+    valuesTitle: "Our Values",
+    values: [
+      { title: "Transparency", body: "We base all our guidance on official sources and real data." },
+      { title: "Security", body: "We prioritize legal and secure routes to ensure our clients' peace of mind." },
+      { title: "Innovation", body: "We use technology to simplify complex processes through simulators and calculators." },
+    ],
+    teamTitle: "Our Team",
+    teamBody: "We have a network of immigration experts, financial consultants, and Brazilians living in Spain who share a common goal: your migratory success.",
+  },
+};
+
+export function getAboutPageContent(locale: Locale) {
+  return aboutPageContent[locale];
 }
 
 export function getVisaSimulatorPageContent(locale: Locale) {

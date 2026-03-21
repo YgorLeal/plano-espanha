@@ -4,10 +4,10 @@ import Link from "next/link";
 import { useState } from "react";
 import { Locale } from "@/lib/i18n";
 
-const labels: Record<Locale, { calc: string; visa: string; blog: string; cta: string }> = {
-  pt: { calc: "Calculadora", visa: "Simulador de Visto", blog: "Blog", cta: "Fale Conosco" },
-  es: { calc: "Calculadora", visa: "Simulador de Visado", blog: "Blog", cta: "Contactar" },
-  en: { calc: "Calculator", visa: "Visa Simulator", blog: "Blog", cta: "Contact Us" },
+const labels: Record<Locale, { about: string; calc: string; visa: string; blog: string; cta: string }> = {
+  pt: { about: "Quem Somos", calc: "Calculadora", visa: "Simulador de Visto", blog: "Blog", cta: "Fale Conosco" },
+  es: { about: "Quiénes Somos", calc: "Calculadora", visa: "Simulador de Visado", blog: "Blog", cta: "Contactar" },
+  en: { about: "About Us", calc: "Calculator", visa: "Visa Simulator", blog: "Blog", cta: "Contact Us" },
 };
 
 const languages: Record<
@@ -31,6 +31,9 @@ export default function Header({ lang }: { lang: Locale }) {
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">
+          <Link href={`/${lang}/quem-somos`} className="text-[15px] font-semibold text-gray-700 hover:text-brand-600 transition-colors uppercase tracking-wide">
+            {t.about}
+          </Link>
           <Link href={`/${lang}/calculadora`} className="text-[15px] font-semibold text-gray-700 hover:text-brand-600 transition-colors uppercase tracking-wide">
             {t.calc}
           </Link>
@@ -86,6 +89,7 @@ export default function Header({ lang }: { lang: Locale }) {
 
       {menuOpen && (
         <nav className="md:hidden border-t border-gray-100 bg-white px-4 py-4 space-y-3">
+          <Link href={`/${lang}/quem-somos`} className="block text-gray-700 font-medium" onClick={() => setMenuOpen(false)}>{t.about}</Link>
           <Link href={`/${lang}/calculadora`} className="block text-gray-700 font-medium" onClick={() => setMenuOpen(false)}>{t.calc}</Link>
           <Link href={`/${lang}/simulador`} className="block text-gray-700 font-medium" onClick={() => setMenuOpen(false)}>{t.visa}</Link>
           <Link href={`/${lang}/blog`} className="block text-gray-700 font-medium" onClick={() => setMenuOpen(false)}>{t.blog}</Link>

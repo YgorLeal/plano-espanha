@@ -7,8 +7,7 @@
     "build": "node scripts/prebuild-blog.mjs && next build",
     "start": "next start",
     "pages:build": "npm run build",
-    "pages:dev": "npx wrangler dev",
-    "pages:deploy": "npm run build && npx wrangler deploy",
+    "pages:dev": "npx wrangler pages dev out",
     "new-post": "node scripts/new-post.mjs"
   },
   "dependencies": {

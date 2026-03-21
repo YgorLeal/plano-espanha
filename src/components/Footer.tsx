@@ -27,7 +27,7 @@ export default function Footer({ lang }: { lang: Locale }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
         <div className="col-span-1 md:col-span-1">
           <Link href={`/${lang}`} className="block mb-8">
-            <img src="/logo.png" alt="Plano Espanha Logo" className="h-16 w-auto brightness-0 invert" />
+            <img src="/logo.png" alt="Plano Espanha Logo" className="h-16 w-auto rounded-lg" />
           </Link>
           <p className="text-sm leading-relaxed mb-6 font-medium">
             {t.desc}

@@ -17,11 +17,19 @@ export default function Calculator({ lang }: { lang: Locale }) {
   const [housing, setHousing] = useState<HousingKey>("apartment");
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [shareStatus, setShareStatus] = useState<"idle" | "copied" | "error">("idle");
 
   const hasHousingStep = profile !== null && profile !== "family";
   const resultStep = hasHousingStep ? 4 : 3;
   const costs = city && profile ? getCosts(city, profile, housing) : null;
   const barMax = costs ? costs.total : 1;
+  const breakdown = costs
+    ? [
+        { key: "rent" as const, label: content.categoryLabels.rent, value: costs.rent },
+        { key: "groceries" as const, label: content.categoryLabels.groceries, value: costs.groceries },
+        { key: "transport" as const, label: content.categoryLabels.transport, value: costs.transport },
+      ]
+    : [];
   const steps = hasHousingStep
     ? [content.ui.step1, content.ui.step2, content.ui.stepHousing, content.ui.stepResult]
     : [content.ui.step1, content.ui.step2, content.ui.stepResult];
@@ -39,6 +47,35 @@ export default function Calculator({ lang }: { lang: Locale }) {
     setHousing("apartment");
     setSubmitted(false);
     setEmail("");
+    setShareStatus("idle");
+  };
+
+  const shareResult = async () => {
+    if (!city || !profile || !costs) return;
+
+    const summary = [
+      `${content.cityLabels[city]} / ${content.profileLabels[profile].label}`,
+      `${content.categoryLabels.total}: €${costs.total}${content.ui.month}`,
+      `${content.categoryLabels.rent}: €${costs.rent}`,
+      `${content.categoryLabels.groceries}: €${costs.groceries}`,
+      `${content.categoryLabels.transport}: €${costs.transport}`,
+    ].join("\n");
+
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: `${content.cityLabels[city]} / ${content.profileLabels[profile].label}`,
+          text: summary,
+        });
+      } else if (navigator.clipboard) {
+        await navigator.clipboard.writeText(summary);
+        setShareStatus("copied");
+        return;
+      }
+      setShareStatus("copied");
+    } catch {
+      setShareStatus("error");
+    }
   };
 
   return (
@@ -196,6 +233,38 @@ export default function Calculator({ lang }: { lang: Locale }) {
             </div>
           </div>
 
+          <div className="mt-8 rounded-3xl border border-gray-200 bg-gray-50 p-6">
+            <div className="text-[10px] font-black uppercase tracking-[0.28em] text-brand-600">
+              {content.ui.breakdownTitle}
+            </div>
+            <p className="mt-2 text-sm leading-relaxed text-gray-600">{content.ui.breakdownIntro}</p>
+            <div className="mt-5 grid gap-4 md:grid-cols-3">
+              {breakdown.map((item) => {
+                const share = Math.round((item.value / costs.total) * 100);
+
+                return (
+                  <div key={item.key} className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <div className="text-[10px] font-black uppercase tracking-[0.22em] text-gray-400">
+                          {item.label}
+                        </div>
+                        <div className="mt-2 text-2xl font-black tracking-tighter text-gray-900">€{item.value}</div>
+                      </div>
+                      <div className="rounded-full bg-brand-50 px-3 py-1 text-[10px] font-black uppercase tracking-[0.22em] text-brand-700">
+                        {share}
+                        {content.ui.shareOfTotal}
+                      </div>
+                    </div>
+                    <div className="mt-4 h-2 rounded-full bg-gray-100">
+                      <div className="h-2 rounded-full bg-brand-600" style={{ width: `${share}%` }} />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
           <div className="relative mt-12 overflow-hidden rounded-lg bg-gray-900 p-10 text-white shadow-xl">
             <div className="absolute -mr-16 -mt-16 right-0 top-0 h-32 w-32 rounded-full bg-brand-600/20 blur-3xl" />
             <p className="relative z-10 mb-6 text-center text-lg font-black uppercase tracking-tighter">
@@ -230,6 +299,19 @@ export default function Calculator({ lang }: { lang: Locale }) {
                 {content.ui.success}
               </p>
             )}
+          </div>
+
+          <div className="mt-5 flex flex-col items-center gap-3">
+            <button
+              type="button"
+              onClick={shareResult}
+              className="inline-flex items-center justify-center rounded-full border border-gray-200 bg-white px-6 py-4 text-xs font-black uppercase tracking-[0.24em] text-gray-700 transition hover:border-brand-600 hover:text-brand-600"
+            >
+              {content.ui.share}
+            </button>
+            {shareStatus === "copied" ? (
+              <p className="text-[10px] font-black uppercase tracking-[0.24em] text-brand-600">{content.ui.shareSuccess}</p>
+            ) : null}
           </div>
 
           <button

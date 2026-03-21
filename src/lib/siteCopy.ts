@@ -53,6 +53,26 @@ export type VisaSimulatorContent = {
   noteBody: string;
   sourcesTitle: string;
   sourceIntro: string;
+  ui: {
+    start: string;
+    back: string;
+    next: string;
+    step: string;
+    step1: string;
+    step2: string;
+    stepHousing: string;
+    stepResult: string;
+    breakdownTitle: string;
+    breakdownIntro: string;
+    shareOfTotal: string;
+    resultCta: string;
+    placeholder: string;
+    send: string;
+    share: string;
+    shareSuccess: string;
+    month: string;
+    success: string;
+  };
   resultLabels: {
     topMatch: string;
     alternative: string;
@@ -97,9 +117,14 @@ export type CalculatorWidgetContent = {
     step2: string;
     stepHousing: string;
     stepResult: string;
+    breakdownTitle: string;
+    breakdownIntro: string;
+    shareOfTotal: string;
     resultCta: string;
     placeholder: string;
     send: string;
+    share: string;
+    shareSuccess: string;
     month: string;
     back: string;
     next: string;
@@ -325,6 +350,26 @@ export const visaSimulatorWidgetContent: Localized<VisaSimulatorContent> = {
     sourcesTitle: "Fontes oficiais principais",
     sourceIntro:
       "Essas são as páginas-base usadas para calibrar o simulador. Abra uma delas se quiser validar um caso específico.",
+    ui: {
+      start: "Começar triagem",
+      back: "Voltar",
+      next: "Continuar",
+      step: "Passo",
+      step1: "Cidade",
+      step2: "Perfil",
+      stepHousing: "Moradia",
+      stepResult: "Resultado",
+      breakdownTitle: "Breakdown detalhado",
+      breakdownIntro: "Veja o peso de aluguel, supermercado e transporte no seu orçamento mensal.",
+      shareOfTotal: "% do total",
+      resultCta: "Receber relatório completo por email",
+      placeholder: "seu@email.com",
+      send: "Enviar",
+      share: "Compartilhar resultado",
+      shareSuccess: "Resultado copiado para compartilhar.",
+      month: "/mês",
+      success: "Enviado! Verifique seu email.",
+    },
     resultLabels: {
       topMatch: "Melhor opção",
       alternative: "Alternativa",
@@ -421,6 +466,26 @@ export const visaSimulatorWidgetContent: Localized<VisaSimulatorContent> = {
     sourcesTitle: "Principales fuentes oficiales",
     sourceIntro:
       "Estas son las páginas base usadas para calibrar el simulador. Ábre una si quieres validar un caso concreto.",
+    ui: {
+      start: "Empezar triage",
+      back: "Volver",
+      next: "Continuar",
+      step: "Paso",
+      step1: "Ciudad",
+      step2: "Perfil",
+      stepHousing: "Vivienda",
+      stepResult: "Resultado",
+      breakdownTitle: "Desglose detallado",
+      breakdownIntro: "Vea el peso de alquiler, supermercado y transporte en su presupuesto mensual.",
+      shareOfTotal: "% del total",
+      resultCta: "Recibir informe completo por email",
+      placeholder: "tu@email.com",
+      send: "Enviar",
+      share: "Compartir resultado",
+      shareSuccess: "Resultado copiado para compartir.",
+      month: "/mes",
+      success: "¡Enviado! Revisa tu email.",
+    },
     resultLabels: {
       topMatch: "Mejor opción",
       alternative: "Alternativa",
@@ -536,6 +601,26 @@ export const visaSimulatorWidgetContent: Localized<VisaSimulatorContent> = {
       months: "How long have you been in Spain?",
       status: "What is your current status?",
       project: "Does your business project look innovative?",
+    },
+    ui: {
+      start: "Start triage",
+      back: "Back",
+      next: "Continue",
+      step: "Step",
+      step1: "City",
+      step2: "Profile",
+      stepHousing: "Housing",
+      stepResult: "Result",
+      breakdownTitle: "Detailed breakdown",
+      breakdownIntro: "See how much rent, groceries, and transport weigh in your monthly budget.",
+      shareOfTotal: "% of total",
+      resultCta: "Get full report by email",
+      placeholder: "your@email.com",
+      send: "Send",
+      share: "Share result",
+      shareSuccess: "Result copied to share.",
+      month: "/month",
+      success: "Sent! Check your email.",
     },
     options: {
       location: [
@@ -847,9 +932,14 @@ export const calculatorWidgetContent: Localized<CalculatorWidgetContent> = {
       step2: "Perfil",
       stepHousing: "Moradia",
       stepResult: "Resultado",
+      breakdownTitle: "Breakdown detalhado",
+      breakdownIntro: "Veja o peso de aluguel, supermercado e transporte no seu orçamento mensal.",
+      shareOfTotal: "% do total",
       resultCta: "Receber relatório completo por email",
       placeholder: "seu@email.com",
       send: "Enviar",
+      share: "Compartilhar resultado",
+      shareSuccess: "Resultado copiado para compartilhar.",
       month: "/mês",
       back: "Voltar",
       next: "Continuar",
@@ -890,9 +980,14 @@ export const calculatorWidgetContent: Localized<CalculatorWidgetContent> = {
       step2: "Perfil",
       stepHousing: "Vivienda",
       stepResult: "Resultado",
+      breakdownTitle: "Desglose detallado",
+      breakdownIntro: "Vea el peso de alquiler, supermercado y transporte en su presupuesto mensual.",
+      shareOfTotal: "% del total",
       resultCta: "Recibir informe completo por email",
       placeholder: "tu@email.com",
       send: "Enviar",
+      share: "Compartir resultado",
+      shareSuccess: "Resultado copiado para compartir.",
       month: "/mes",
       back: "Volver",
       next: "Continuar",
@@ -933,9 +1028,14 @@ export const calculatorWidgetContent: Localized<CalculatorWidgetContent> = {
       step2: "Profile",
       stepHousing: "Housing",
       stepResult: "Result",
+      breakdownTitle: "Detailed breakdown",
+      breakdownIntro: "See how much rent, groceries, and transport weigh in your monthly budget.",
+      shareOfTotal: "% of total",
       resultCta: "Get full report by email",
       placeholder: "your@email.com",
       send: "Send",
+      share: "Share result",
+      shareSuccess: "Result copied to share.",
       month: "/month",
       back: "Back",
       next: "Continue",

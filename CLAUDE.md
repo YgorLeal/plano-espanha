@@ -14,10 +14,6 @@ Plano Espanha is a multilingual (pt/es/en) Next.js 14 site targeting Brazilians 
 - `npm run pages:deploy` — build + deploy to Cloudflare Workers
 - `npm run new-post "Title"` — scaffold a new blog post in `content/blog/`
 
-GitHub Actions:
-- `.github/workflows/deploy.yml` deploys on every push to `main`
-- requires `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` repository secrets
-
 No test runner or linter is configured.
 
 ## Architecture

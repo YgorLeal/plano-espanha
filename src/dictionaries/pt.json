@@ -33,6 +33,11 @@
     "stepCity": "Escolha a cidade",
     "stepProfile": "Seu perfil",
     "stepResult": "Resultado",
+    "stepHousing": "Moradia",
+    "housing": {
+      "apartment": "Apartamento inteiro",
+      "room": "Quarto em piso compartilhado"
+    },
     "cities": {
       "madrid": "Madrid",
       "barcelona": "Barcelona",
@@ -49,10 +54,12 @@
     },
     "categories": {
       "rent": "Aluguel",
+      "utilities": "Contas (luz/água/internet)",
       "groceries": "Supermercado",
       "transport": "Transporte",
       "health": "Saúde",
       "leisure": "Lazer",
+      "dining": "Comer fora",
       "total": "Total estimado"
     },
     "resultCta": "Receber relatório completo por email",

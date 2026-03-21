@@ -33,6 +33,11 @@
     "stepCity": "Elige la ciudad",
     "stepProfile": "Tu perfil",
     "stepResult": "Resultado",
+    "stepHousing": "Vivienda",
+    "housing": {
+      "apartment": "Piso completo",
+      "room": "Habitación en piso compartido"
+    },
     "cities": {
       "madrid": "Madrid",
       "barcelona": "Barcelona",
@@ -49,10 +54,12 @@
     },
     "categories": {
       "rent": "Alquiler",
+      "utilities": "Suministros (luz/agua/internet)",
       "groceries": "Supermercado",
       "transport": "Transporte",
       "health": "Salud",
       "leisure": "Ocio",
+      "dining": "Comer fuera",
       "total": "Total estimado"
     },
     "resultCta": "Recibir informe completo por email",

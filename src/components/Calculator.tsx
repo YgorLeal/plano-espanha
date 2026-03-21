@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CityKey, ProfileKey, getCosts } from "@/lib/costData";
+import { CityKey, ProfileKey, HousingKey, getCosts, costCategories } from "@/lib/costData";
 
 type Locale = "pt" | "es" | "en";
 
@@ -17,38 +17,88 @@ const profileLabels: Record<Locale, Record<ProfileKey, { label: string; icon: st
   en: { solo: { label: "Solo", icon: "🧑" }, couple: { label: "Couple", icon: "👫" }, family: { label: "Family", icon: "👨‍👩‍👧" } },
 };
 
-const catLabels: Record<Locale, Record<string, string>> = {
-  pt: { rent: "Aluguel", groceries: "Supermercado", transport: "Transporte", health: "Saúde", leisure: "Lazer", total: "Total estimado" },
-  es: { rent: "Alquiler", groceries: "Supermercado", transport: "Transporte", health: "Salud", leisure: "Ocio", total: "Total estimado" },
-  en: { rent: "Rent", groceries: "Groceries", transport: "Transport", health: "Health", leisure: "Leisure", total: "Estimated total" },
+const housingLabels: Record<Locale, Record<HousingKey, { label: string; icon: string; desc: string }>> = {
+  pt: {
+    apartment: { label: "Apartamento inteiro", icon: "🏠", desc: "Apartamento só para você" },
+    room: { label: "Quarto em piso compartilhado", icon: "🛏️", desc: "Quarto em apartamento dividido" },
+  },
+  es: {
+    apartment: { label: "Piso completo", icon: "🏠", desc: "Apartamento solo para ti" },
+    room: { label: "Habitación en piso compartido", icon: "🛏️", desc: "Habitación en piso compartido" },
+  },
+  en: {
+    apartment: { label: "Full apartment", icon: "🏠", desc: "Apartment just for you" },
+    room: { label: "Room in shared flat", icon: "🛏️", desc: "Room in a shared apartment" },
+  },
 };
 
-const uiLabels: Record<Locale, { step1: string; step2: string; step3: string; resultCta: string; placeholder: string; send: string; month: string; back: string; next: string; success: string }> = {
-  pt: { step1: "Escolha a cidade", step2: "Seu perfil", step3: "Resultado", resultCta: "Receber relatório completo por email", placeholder: "seu@email.com", send: "Enviar", month: "/mês", back: "Voltar", next: "Continuar", success: "Enviado! Verifique seu email." },
-  es: { step1: "Elige la ciudad", step2: "Tu perfil", step3: "Resultado", resultCta: "Recibir informe completo por email", placeholder: "tu@email.com", send: "Enviar", month: "/mes", back: "Volver", next: "Continuar", success: "¡Enviado! Revisa tu email." },
-  en: { step1: "Choose the city", step2: "Your profile", step3: "Result", resultCta: "Get full report by email", placeholder: "your@email.com", send: "Send", month: "/month", back: "Back", next: "Continue", success: "Sent! Check your email." },
+const catLabels: Record<Locale, Record<string, string>> = {
+  pt: { rent: "Aluguel", utilities: "Contas (luz/água/internet)", groceries: "Supermercado", transport: "Transporte", health: "Saúde", leisure: "Lazer", dining: "Comer fora", total: "Total estimado" },
+  es: { rent: "Alquiler", utilities: "Suministros (luz/agua/internet)", groceries: "Supermercado", transport: "Transporte", health: "Salud", leisure: "Ocio", dining: "Comer fuera", total: "Total estimado" },
+  en: { rent: "Rent", utilities: "Utilities (power/water/internet)", groceries: "Groceries", transport: "Transport", health: "Health", leisure: "Leisure", dining: "Dining out", total: "Estimated total" },
+};
+
+const uiLabels: Record<Locale, { step1: string; step2: string; stepHousing: string; stepResult: string; resultCta: string; placeholder: string; send: string; month: string; back: string; next: string; success: string }> = {
+  pt: { step1: "Cidade", step2: "Perfil", stepHousing: "Moradia", stepResult: "Resultado", resultCta: "Receber relatório completo por email", placeholder: "seu@email.com", send: "Enviar", month: "/mês", back: "Voltar", next: "Continuar", success: "Enviado! Verifique seu email." },
+  es: { step1: "Ciudad", step2: "Perfil", stepHousing: "Vivienda", stepResult: "Resultado", resultCta: "Recibir informe completo por email", placeholder: "tu@email.com", send: "Enviar", month: "/mes", back: "Volver", next: "Continuar", success: "¡Enviado! Revisa tu email." },
+  en: { step1: "City", step2: "Profile", stepHousing: "Housing", stepResult: "Result", resultCta: "Get full report by email", placeholder: "your@email.com", send: "Send", month: "/month", back: "Back", next: "Continue", success: "Sent! Check your email." },
 };
 
 const cities: CityKey[] = ["madrid", "barcelona", "valencia", "sevilla", "granada", "malaga", "bilbao"];
 const profiles: ProfileKey[] = ["solo", "couple", "family"];
+const housingOptions: HousingKey[] = ["apartment", "room"];
 
 export default function Calculator({ lang }: { lang: Locale }) {
   const [step, setStep] = useState(1);
   const [city, setCity] = useState<CityKey | null>(null);
   const [profile, setProfile] = useState<ProfileKey | null>(null);
+  const [housing, setHousing] = useState<HousingKey>("apartment");
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
   const ui = uiLabels[lang];
-  const costs = city && profile ? getCosts(city, profile) : null;
 
+  // Family always gets apartment — no housing step
+  const hasHousingStep = profile !== null && profile !== "family";
+  const resultStep = hasHousingStep ? 4 : 3;
+
+  const costs = city && profile ? getCosts(city, profile, housing) : null;
   const barMax = costs ? costs.total : 1;
+
+  // Build steps list dynamically
+  const steps = hasHousingStep
+    ? [ui.step1, ui.step2, ui.stepHousing, ui.stepResult]
+    : [ui.step1, ui.step2, ui.stepResult];
+
+  const handleProfileSelect = (p: ProfileKey) => {
+    setProfile(p);
+    setHousing("apartment");
+    if (p === "family") {
+      setStep(3); // skip housing, go to results
+    } else {
+      setStep(3); // go to housing step
+    }
+  };
+
+  const handleHousingSelect = (h: HousingKey) => {
+    setHousing(h);
+    setStep(4); // go to results
+  };
+
+  const handleReset = () => {
+    setStep(1);
+    setCity(null);
+    setProfile(null);
+    setHousing("apartment");
+    setSubmitted(false);
+    setEmail("");
+  };
 
   return (
     <div className="max-w-2xl mx-auto">
       {/* Steps indicator */}
       <div className="flex items-center justify-center gap-2 mb-10">
-        {[ui.step1, ui.step2, ui.step3].map((label, i) => (
+        {steps.map((label, i) => (
           <div key={i} className="flex items-center gap-2">
             <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
               step > i + 1 ? "bg-brand-600 text-white" : step === i + 1 ? "bg-brand-600 text-white" : "bg-gray-200 text-gray-500"
@@ -58,7 +108,7 @@ export default function Calculator({ lang }: { lang: Locale }) {
             <span className={`text-sm hidden sm:inline ${step === i + 1 ? "font-semibold text-gray-900" : "text-gray-400"}`}>
               {label}
             </span>
-            {i < 2 && <div className="w-8 h-px bg-gray-300" />}
+            {i < steps.length - 1 && <div className="w-8 h-px bg-gray-300" />}
           </div>
         ))}
       </div>
@@ -91,7 +141,7 @@ export default function Calculator({ lang }: { lang: Locale }) {
             {profiles.map((p) => (
               <button
                 key={p}
-                onClick={() => { setProfile(p); setStep(3); }}
+                onClick={() => handleProfileSelect(p)}
                 className={`p-8 rounded-lg border-2 text-center transition-all hover:shadow-xl ${
                   profile === p ? "border-brand-600 bg-brand-50 shadow-md" : "border-gray-100 hover:border-brand-200"
                 }`}
@@ -108,17 +158,48 @@ export default function Calculator({ lang }: { lang: Locale }) {
         </div>
       )}
 
-      {/* Step 3: Results */}
-      {step === 3 && costs && city && profile && (
+      {/* Step 3: Housing selection (only for solo/couple) */}
+      {step === 3 && hasHousingStep && (
+        <div className="space-y-3">
+          <h3 className="text-2xl font-black text-gray-900 text-center mb-8 uppercase tracking-tight font-heading">{ui.stepHousing}</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {housingOptions.map((h) => (
+              <button
+                key={h}
+                onClick={() => handleHousingSelect(h)}
+                className={`p-8 rounded-lg border-2 text-center transition-all hover:shadow-xl ${
+                  housing === h ? "border-brand-600 bg-brand-50 shadow-md" : "border-gray-100 hover:border-brand-200"
+                }`}
+              >
+                <div className="text-4xl mb-4">{housingLabels[lang][h].icon}</div>
+                <span className="text-lg font-black text-gray-900 uppercase tracking-tighter block">{housingLabels[lang][h].label}</span>
+                <span className="text-sm text-gray-400 mt-2 block">{housingLabels[lang][h].desc}</span>
+              </button>
+            ))}
+          </div>
+          <button onClick={() => setStep(2)} className="text-xs font-bold text-gray-400 hover:text-brand-600 mt-8 uppercase tracking-widest transition-colors flex items-center gap-2 mx-auto">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" /></svg>
+            {ui.back}
+          </button>
+        </div>
+      )}
+
+      {/* Results (step 3 for family, step 4 for solo/couple) */}
+      {step === resultStep && costs && city && profile && (
         <div>
           <div className="text-center mb-10">
             <h3 className="text-3xl font-black text-gray-900 uppercase tracking-tighter font-heading">
               {cityLabels[lang][city]} <span className="text-brand-600">/</span> {profileLabels[lang][profile].label}
             </h3>
+            {hasHousingStep && (
+              <p className="text-sm text-gray-400 mt-2 uppercase tracking-widest font-bold">
+                {housingLabels[lang][housing].icon} {housingLabels[lang][housing].label}
+              </p>
+            )}
           </div>
 
           <div className="bg-white rounded-lg border border-gray-100 shadow-2xl overflow-hidden">
-            {(["rent", "groceries", "transport", "health", "leisure"] as const).map((cat) => (
+            {costCategories.map((cat) => (
               <div key={cat} className="flex items-center justify-between px-8 py-6 border-b border-gray-50">
                 <span className="text-gray-500 font-bold uppercase tracking-widest text-xs">{catLabels[lang][cat]}</span>
                 <div className="flex items-center gap-6">
@@ -153,7 +234,7 @@ export default function Calculator({ lang }: { lang: Locale }) {
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
-                  console.log("Lead captured:", { email, city, profile });
+                  console.log("Lead captured:", { email, city, profile, housing });
                   setSubmitted(true);
                 }}
                 className="flex flex-col sm:flex-row gap-3 relative z-10"
@@ -178,7 +259,7 @@ export default function Calculator({ lang }: { lang: Locale }) {
             )}
           </div>
 
-          <button onClick={() => { setStep(1); setCity(null); setProfile(null); setSubmitted(false); setEmail(""); }} className="text-[10px] font-black text-gray-400 hover:text-brand-600 mt-10 block mx-auto uppercase tracking-[0.3em] transition-colors">
+          <button onClick={handleReset} className="text-[10px] font-black text-gray-400 hover:text-brand-600 mt-10 block mx-auto uppercase tracking-[0.3em] transition-colors">
              {ui.back}
           </button>
         </div>

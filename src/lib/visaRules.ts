@@ -1,4 +1,5 @@
 import type { Locale } from "@/lib/i18n";
+import { visaRuleCopy } from "@/lib/siteCopy";
 
 export type VisaLocation = "outside" | "inside";
 export type VisaObjective =
@@ -57,68 +58,7 @@ type RouteMatcher = {
   sources: { label: Record<Locale, string>; href: string }[];
 };
 
-const copy = {
-  pt: {
-    outsideSpain: "Você está fora da Espanha, o que combina com rotas consulares.",
-    insideSpain: "Você já está na Espanha, então também avaliamos vias internas e de regularização.",
-    stableIncome: "Você indicou renda estável o suficiente para uma residência sem trabalho.",
-    strongIncome: "Sua renda e poupança sugerem folga financeira para rotas sem atividade laboral.",
-    remoteForeign: "Seu trabalho remoto para empresa de fora da Espanha é o gatilho principal dessa via.",
-    localOffer: "Há uma oferta de trabalho na Espanha, o que abre rotas laborais diretas.",
-    highOffer: "A oferta parece de alta qualificação, então a via UGE ganha força.",
-    selfEmployed: "Seu perfil aponta para atividade por conta própria.",
-    innovativeProject: "O projeto tem cara de iniciativa empresarial inovadora.",
-    officialStudy: "Você já tem matrícula ou aceitação em formação oficial.",
-    familySpanish: "Há vínculo com pessoa de nacionalidade espanhola.",
-    familyEU: "Há vínculo com cidadão da UE/EEE/Suíça.",
-    familyResident: "Há vínculo com familiar residente legal na Espanha.",
-    twoYears: "Você já cumpre o requisito temporal mínimo de dois anos na Espanha.",
-    irregular: "O status atual é irregular, o que faz sentido para arraigo.",
-    regular: "Seu status atual é regular, então o foco tende a ser entrada ou modificação.",
-    noClearRoute: "Ainda não apareceu uma rota forte o suficiente para ir direto à recomendação final.",
-    transitionNote: "A via de investidor não entra na recomendação automática porque o regime está em transição normativa e deve ser verificado caso a caso.",
-  },
-  es: {
-    outsideSpain: "Estás fuera de España, así que encajan mejor las vías consulares.",
-    insideSpain: "Ya estás en España, por lo que también evaluamos vías internas y de regularización.",
-    stableIncome: "Tu ingreso estable encaja con una residencia sin trabajo.",
-    strongIncome: "Tus ingresos y ahorros apuntan a un perfil financiero cómodo para vías sin actividad laboral.",
-    remoteForeign: "El trabajo remoto para una empresa fuera de España es el disparador principal de esta vía.",
-    localOffer: "Tienes una oferta de trabajo en España, lo que abre vías laborales directas.",
-    highOffer: "La oferta parece de alta cualificación, así que la vía UGE gana fuerza.",
-    selfEmployed: "Tu perfil apunta a actividad por cuenta propia.",
-    innovativeProject: "El proyecto tiene rasgos de iniciativa empresarial innovadora.",
-    officialStudy: "Ya tienes matrícula o admisión en formación oficial.",
-    familySpanish: "Existe vínculo con una persona con nacionalidad española.",
-    familyEU: "Existe vínculo con un ciudadano de la UE/EEE/Suiza.",
-    familyResident: "Existe vínculo con un familiar residente legal en España.",
-    twoYears: "Ya cumples el requisito temporal mínimo de dos años en España.",
-    irregular: "La situación actual es irregular, lo que encaja con arraigo.",
-    regular: "Tu situación actual es regular, así que el foco suele ser entrada o modificación.",
-    noClearRoute: "Aún no aparece una vía lo bastante fuerte como para recomendarla de forma principal.",
-    transitionNote: "La vía de inversor no entra en la recomendación automática porque el régimen está en transición normativa y debe verificarse caso por caso.",
-  },
-  en: {
-    outsideSpain: "You are outside Spain, so consular routes fit better.",
-    insideSpain: "You are already in Spain, so internal and regularization paths are also evaluated.",
-    stableIncome: "Your stable income fits a residence route without work.",
-    strongIncome: "Your income and savings suggest a comfortable financial profile for non-working routes.",
-    remoteForeign: "Remote work for a company outside Spain is the main trigger for this route.",
-    localOffer: "You have a job offer in Spain, which opens direct work routes.",
-    highOffer: "The offer looks highly qualified, so the UGE route becomes stronger.",
-    selfEmployed: "Your profile points to self-employment.",
-    innovativeProject: "The project looks like an innovative business initiative.",
-    officialStudy: "You already have enrollment or admission in an official program.",
-    familySpanish: "There is a link to a Spanish national.",
-    familyEU: "There is a link to an EU/EEA/Swiss citizen.",
-    familyResident: "There is a link to a legal resident in Spain.",
-    twoYears: "You already meet the minimum two-year presence requirement in Spain.",
-    irregular: "Your current status is irregular, which is consistent with arraigo paths.",
-    regular: "Your current status is regular, so the focus is usually entry or modification.",
-    noClearRoute: "No route is strong enough yet to be the main recommendation.",
-    transitionNote: "The investor route is not included in the automatic recommendation because the regime is in a legal transition and should be checked case by case.",
-  },
-} as const;
+const copy = visaRuleCopy;
 
 const officialSources = {
   instructions: "https://ciudadaniaexterior.inclusion.gob.es/web/migraciones/instrucciones",

@@ -2,53 +2,15 @@
 
 import { useState } from "react";
 import { CityKey, ProfileKey, HousingKey, getCosts, costCategories } from "@/lib/costData";
+import { Locale } from "@/lib/i18n";
+import { getCalculatorWidgetContent } from "@/lib/siteCopy";
 
-type Locale = "pt" | "es" | "en";
-
-const cityLabels: Record<Locale, Record<CityKey, string>> = {
-  pt: { madrid: "Madrid", barcelona: "Barcelona", valencia: "Valência", sevilla: "Sevilha", granada: "Granada", malaga: "Málaga", bilbao: "Bilbao" },
-  es: { madrid: "Madrid", barcelona: "Barcelona", valencia: "Valencia", sevilla: "Sevilla", granada: "Granada", malaga: "Málaga", bilbao: "Bilbao" },
-  en: { madrid: "Madrid", barcelona: "Barcelona", valencia: "Valencia", sevilla: "Seville", granada: "Granada", malaga: "Malaga", bilbao: "Bilbao" },
-};
-
-const profileLabels: Record<Locale, Record<ProfileKey, { label: string; icon: string }>> = {
-  pt: { solo: { label: "Sozinho(a)", icon: "🧑" }, couple: { label: "Casal", icon: "👫" }, family: { label: "Família", icon: "👨‍👩‍👧" } },
-  es: { solo: { label: "Solo/a", icon: "🧑" }, couple: { label: "Pareja", icon: "👫" }, family: { label: "Familia", icon: "👨‍👩‍👧" } },
-  en: { solo: { label: "Solo", icon: "🧑" }, couple: { label: "Couple", icon: "👫" }, family: { label: "Family", icon: "👨‍👩‍👧" } },
-};
-
-const housingLabels: Record<Locale, Record<HousingKey, { label: string; icon: string; desc: string }>> = {
-  pt: {
-    apartment: { label: "Apartamento inteiro", icon: "🏠", desc: "Apartamento só para você" },
-    room: { label: "Quarto em piso compartilhado", icon: "🛏️", desc: "Quarto em apartamento dividido" },
-  },
-  es: {
-    apartment: { label: "Piso completo", icon: "🏠", desc: "Apartamento solo para ti" },
-    room: { label: "Habitación en piso compartido", icon: "🛏️", desc: "Habitación en piso compartido" },
-  },
-  en: {
-    apartment: { label: "Full apartment", icon: "🏠", desc: "Apartment just for you" },
-    room: { label: "Room in shared flat", icon: "🛏️", desc: "Room in a shared apartment" },
-  },
-};
-
-const catLabels: Record<Locale, Record<string, string>> = {
-  pt: { rent: "Aluguel", utilities: "Contas (luz/água/internet)", groceries: "Supermercado", transport: "Transporte", health: "Saúde", leisure: "Lazer", dining: "Comer fora", total: "Total estimado" },
-  es: { rent: "Alquiler", utilities: "Suministros (luz/agua/internet)", groceries: "Supermercado", transport: "Transporte", health: "Salud", leisure: "Ocio", dining: "Comer fuera", total: "Total estimado" },
-  en: { rent: "Rent", utilities: "Utilities (power/water/internet)", groceries: "Groceries", transport: "Transport", health: "Health", leisure: "Leisure", dining: "Dining out", total: "Estimated total" },
-};
-
-const uiLabels: Record<Locale, { step1: string; step2: string; stepHousing: string; stepResult: string; resultCta: string; placeholder: string; send: string; month: string; back: string; next: string; success: string }> = {
-  pt: { step1: "Cidade", step2: "Perfil", stepHousing: "Moradia", stepResult: "Resultado", resultCta: "Receber relatório completo por email", placeholder: "seu@email.com", send: "Enviar", month: "/mês", back: "Voltar", next: "Continuar", success: "Enviado! Verifique seu email." },
-  es: { step1: "Ciudad", step2: "Perfil", stepHousing: "Vivienda", stepResult: "Resultado", resultCta: "Recibir informe completo por email", placeholder: "tu@email.com", send: "Enviar", month: "/mes", back: "Volver", next: "Continuar", success: "¡Enviado! Revisa tu email." },
-  en: { step1: "City", step2: "Profile", stepHousing: "Housing", stepResult: "Result", resultCta: "Get full report by email", placeholder: "your@email.com", send: "Send", month: "/month", back: "Back", next: "Continue", success: "Sent! Check your email." },
-};
-
-const cities: CityKey[] = ["madrid", "barcelona", "valencia", "sevilla", "granada", "malaga", "bilbao"];
-const profiles: ProfileKey[] = ["solo", "couple", "family"];
+const cityOrder: CityKey[] = ["madrid", "barcelona", "valencia", "sevilla", "granada", "malaga", "bilbao"];
+const profileOrder: ProfileKey[] = ["solo", "couple", "family"];
 const housingOptions: HousingKey[] = ["apartment", "room"];
 
 export default function Calculator({ lang }: { lang: Locale }) {
+  const content = getCalculatorWidgetContent(lang);
   const [step, setStep] = useState(1);
   const [city, setCity] = useState<CityKey | null>(null);
   const [profile, setProfile] = useState<ProfileKey | null>(null);
@@ -56,36 +18,21 @@ export default function Calculator({ lang }: { lang: Locale }) {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
-  const ui = uiLabels[lang];
-
-  // Family always gets apartment — no housing step
   const hasHousingStep = profile !== null && profile !== "family";
   const resultStep = hasHousingStep ? 4 : 3;
-
   const costs = city && profile ? getCosts(city, profile, housing) : null;
   const barMax = costs ? costs.total : 1;
-
-  // Build steps list dynamically
   const steps = hasHousingStep
-    ? [ui.step1, ui.step2, ui.stepHousing, ui.stepResult]
-    : [ui.step1, ui.step2, ui.stepResult];
+    ? [content.ui.step1, content.ui.step2, content.ui.stepHousing, content.ui.stepResult]
+    : [content.ui.step1, content.ui.step2, content.ui.stepResult];
 
-  const handleProfileSelect = (p: ProfileKey) => {
-    setProfile(p);
+  const handleProfileSelect = (nextProfile: ProfileKey) => {
+    setProfile(nextProfile);
     setHousing("apartment");
-    if (p === "family") {
-      setStep(3); // skip housing, go to results
-    } else {
-      setStep(3); // go to housing step
-    }
+    setStep(3);
   };
 
-  const handleHousingSelect = (h: HousingKey) => {
-    setHousing(h);
-    setStep(4); // go to results
-  };
-
-  const handleReset = () => {
+  const reset = () => {
     setStep(1);
     setCity(null);
     setProfile(null);
@@ -95,141 +42,165 @@ export default function Calculator({ lang }: { lang: Locale }) {
   };
 
   return (
-    <div className="max-w-2xl mx-auto">
-      {/* Steps indicator */}
-      <div className="flex items-center justify-center gap-2 mb-10">
-        {steps.map((label, i) => (
-          <div key={i} className="flex items-center gap-2">
-            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
-              step > i + 1 ? "bg-brand-600 text-white" : step === i + 1 ? "bg-brand-600 text-white" : "bg-gray-200 text-gray-500"
-            }`}>
-              {step > i + 1 ? "✓" : i + 1}
+    <div className="mx-auto max-w-2xl">
+      <div className="mb-10 flex items-center justify-center gap-2">
+        {steps.map((label, index) => (
+          <div key={label} className="flex items-center gap-2">
+            <div
+              className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold ${
+                step > index + 1 ? "bg-brand-600 text-white" : step === index + 1 ? "bg-brand-600 text-white" : "bg-gray-200 text-gray-500"
+              }`}
+            >
+              {step > index + 1 ? "✓" : index + 1}
             </div>
-            <span className={`text-sm hidden sm:inline ${step === i + 1 ? "font-semibold text-gray-900" : "text-gray-400"}`}>
-              {label}
-            </span>
-            {i < steps.length - 1 && <div className="w-8 h-px bg-gray-300" />}
+            <span className={`hidden text-sm sm:inline ${step === index + 1 ? "font-semibold text-gray-900" : "text-gray-400"}`}>{label}</span>
+            {index < steps.length - 1 && <div className="h-px w-8 bg-gray-300" />}
           </div>
         ))}
       </div>
 
-      {/* Step 1: City selection */}
       {step === 1 && (
         <div className="space-y-3">
-          <h3 className="text-2xl font-black text-gray-900 text-center mb-8 uppercase tracking-tight font-heading">{ui.step1}</h3>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-            {cities.map((c) => (
+          <h3 className="mb-8 text-center font-heading text-2xl font-black uppercase tracking-tight text-gray-900">
+            {content.ui.step1}
+          </h3>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+            {cityOrder.map((item) => (
               <button
-                key={c}
-                onClick={() => { setCity(c); setStep(2); }}
-                className={`p-6 rounded-lg border-2 text-left transition-all hover:shadow-xl ${
-                  city === c ? "border-brand-600 bg-brand-50 shadow-md" : "border-gray-100 hover:border-brand-200"
+                key={item}
+                type="button"
+                onClick={() => {
+                  setCity(item);
+                  setStep(2);
+                }}
+                className={`rounded-lg border-2 p-6 text-left transition-all hover:shadow-xl ${
+                  city === item ? "border-brand-600 bg-brand-50 shadow-md" : "border-gray-100 hover:border-brand-200"
                 }`}
               >
-                <span className="text-lg font-black text-gray-900 uppercase tracking-tighter">{cityLabels[lang][c]}</span>
+                <span className="text-lg font-black uppercase tracking-tighter text-gray-900">
+                  {content.cityLabels[item]}
+                </span>
               </button>
             ))}
           </div>
         </div>
       )}
 
-      {/* Step 2: Profile selection */}
       {step === 2 && (
         <div className="space-y-3">
-          <h3 className="text-2xl font-black text-gray-900 text-center mb-8 uppercase tracking-tight font-heading">{ui.step2}</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {profiles.map((p) => (
+          <h3 className="mb-8 text-center font-heading text-2xl font-black uppercase tracking-tight text-gray-900">
+            {content.ui.step2}
+          </h3>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            {profileOrder.map((item) => (
               <button
-                key={p}
-                onClick={() => handleProfileSelect(p)}
-                className={`p-8 rounded-lg border-2 text-center transition-all hover:shadow-xl ${
-                  profile === p ? "border-brand-600 bg-brand-50 shadow-md" : "border-gray-100 hover:border-brand-200"
+                key={item}
+                type="button"
+                onClick={() => handleProfileSelect(item)}
+                className={`rounded-lg border-2 p-8 text-center transition-all hover:shadow-xl ${
+                  profile === item ? "border-brand-600 bg-brand-50 shadow-md" : "border-gray-100 hover:border-brand-200"
                 }`}
               >
-                <div className="text-4xl mb-4">{profileLabels[lang][p].icon}</div>
-                <span className="text-lg font-black text-gray-900 uppercase tracking-tighter">{profileLabels[lang][p].label}</span>
+                <div className="mb-4 text-4xl">{content.profileLabels[item].icon}</div>
+                <span className="text-lg font-black uppercase tracking-tighter text-gray-900">
+                  {content.profileLabels[item].label}
+                </span>
               </button>
             ))}
           </div>
-          <button onClick={() => setStep(1)} className="text-xs font-bold text-gray-400 hover:text-brand-600 mt-8 uppercase tracking-widest transition-colors flex items-center gap-2 mx-auto">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" /></svg>
-            {ui.back}
+          <button
+            type="button"
+            onClick={() => setStep(1)}
+            className="mx-auto mt-8 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-400 transition-colors hover:text-brand-600"
+          >
+            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
+            </svg>
+            {content.ui.back}
           </button>
         </div>
       )}
 
-      {/* Step 3: Housing selection (only for solo/couple) */}
       {step === 3 && hasHousingStep && (
         <div className="space-y-3">
-          <h3 className="text-2xl font-black text-gray-900 text-center mb-8 uppercase tracking-tight font-heading">{ui.stepHousing}</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {housingOptions.map((h) => (
+          <h3 className="mb-8 text-center font-heading text-2xl font-black uppercase tracking-tight text-gray-900">
+            {content.ui.stepHousing}
+          </h3>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {housingOptions.map((item) => (
               <button
-                key={h}
-                onClick={() => handleHousingSelect(h)}
-                className={`p-8 rounded-lg border-2 text-center transition-all hover:shadow-xl ${
-                  housing === h ? "border-brand-600 bg-brand-50 shadow-md" : "border-gray-100 hover:border-brand-200"
+                key={item}
+                type="button"
+                onClick={() => {
+                  setHousing(item);
+                  setStep(4);
+                }}
+                className={`rounded-lg border-2 p-8 text-center transition-all hover:shadow-xl ${
+                  housing === item ? "border-brand-600 bg-brand-50 shadow-md" : "border-gray-100 hover:border-brand-200"
                 }`}
               >
-                <div className="text-4xl mb-4">{housingLabels[lang][h].icon}</div>
-                <span className="text-lg font-black text-gray-900 uppercase tracking-tighter block">{housingLabels[lang][h].label}</span>
-                <span className="text-sm text-gray-400 mt-2 block">{housingLabels[lang][h].desc}</span>
+                <div className="mb-4 text-4xl">{content.housingLabels[item].icon}</div>
+                <span className="block text-lg font-black uppercase tracking-tighter text-gray-900">
+                  {content.housingLabels[item].label}
+                </span>
+                <span className="mt-2 block text-sm text-gray-400">{content.housingLabels[item].desc}</span>
               </button>
             ))}
           </div>
-          <button onClick={() => setStep(2)} className="text-xs font-bold text-gray-400 hover:text-brand-600 mt-8 uppercase tracking-widest transition-colors flex items-center gap-2 mx-auto">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" /></svg>
-            {ui.back}
+          <button
+            type="button"
+            onClick={() => setStep(2)}
+            className="mx-auto mt-8 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-400 transition-colors hover:text-brand-600"
+          >
+            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
+            </svg>
+            {content.ui.back}
           </button>
         </div>
       )}
 
-      {/* Results (step 3 for family, step 4 for solo/couple) */}
       {step === resultStep && costs && city && profile && (
         <div>
-          <div className="text-center mb-10">
-            <h3 className="text-3xl font-black text-gray-900 uppercase tracking-tighter font-heading">
-              {cityLabels[lang][city]} <span className="text-brand-600">/</span> {profileLabels[lang][profile].label}
+          <div className="mb-10 text-center">
+            <h3 className="font-heading text-3xl font-black uppercase tracking-tighter text-gray-900">
+              {content.cityLabels[city]} <span className="text-brand-600">/</span> {content.profileLabels[profile].label}
             </h3>
             {hasHousingStep && (
-              <p className="text-sm text-gray-400 mt-2 uppercase tracking-widest font-bold">
-                {housingLabels[lang][housing].icon} {housingLabels[lang][housing].label}
+              <p className="mt-2 text-sm font-bold uppercase tracking-widest text-gray-400">
+                {content.housingLabels[housing].icon} {content.housingLabels[housing].label}
               </p>
             )}
           </div>
 
-          <div className="bg-white rounded-lg border border-gray-100 shadow-2xl overflow-hidden">
-            {costCategories.map((cat) => (
-              <div key={cat} className="flex items-center justify-between px-8 py-6 border-b border-gray-50">
-                <span className="text-gray-500 font-bold uppercase tracking-widest text-xs">{catLabels[lang][cat]}</span>
+          <div className="overflow-hidden rounded-lg border border-gray-100 bg-white shadow-2xl">
+            {costCategories.map((category) => (
+              <div key={category} className="flex items-center justify-between border-b border-gray-50 px-8 py-6">
+                <span className="text-xs font-bold uppercase tracking-widest text-gray-500">
+                  {content.categoryLabels[category]}
+                </span>
                 <div className="flex items-center gap-6">
-                  <div className="w-32 bg-gray-50 rounded-full h-1.5 hidden sm:block">
-                    <div
-                      className="bg-brand-600 h-1.5 rounded-full transition-all"
-                      style={{ width: `${(costs[cat] / barMax) * 100}%` }}
-                    />
+                  <div className="hidden h-1.5 w-32 rounded-full bg-gray-50 sm:block">
+                    <div className="h-1.5 rounded-full bg-brand-600 transition-all" style={{ width: `${(costs[category] / barMax) * 100}%` }} />
                   </div>
-                  <span className="font-black text-gray-900 w-24 text-right text-xl tracking-tighter">
-                    €{costs[cat]}
-                  </span>
+                  <span className="w-24 text-right text-xl font-black tracking-tighter text-gray-900">€{costs[category]}</span>
                 </div>
               </div>
             ))}
-            <div className="flex items-center justify-between px-8 py-8 bg-brand-600 text-white">
-              <span className="font-black text-xl uppercase tracking-tighter">{catLabels[lang]["total"]}</span>
+            <div className="flex items-center justify-between bg-brand-600 px-8 py-8 text-white">
+              <span className="text-xl font-black uppercase tracking-tighter">{content.categoryLabels.total}</span>
               <div className="text-right">
-                <span className="font-black text-4xl tracking-tighter block leading-none">
-                  €{costs.total}
-                </span>
-                <span className="text-[10px] font-black uppercase tracking-[0.2em] opacity-80">{ui.month}</span>
+                <span className="block text-4xl font-black tracking-tighter leading-none">€{costs.total}</span>
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] opacity-80">{content.ui.month}</span>
               </div>
             </div>
           </div>
 
-          {/* Lead capture */}
-          <div className="mt-12 bg-gray-900 rounded-lg p-10 text-white shadow-xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-brand-600/20 rounded-full blur-3xl -mr-16 -mt-16" />
-            <p className="font-black text-lg mb-6 text-center uppercase tracking-tighter relative z-10">{ui.resultCta}</p>
+          <div className="relative mt-12 overflow-hidden rounded-lg bg-gray-900 p-10 text-white shadow-xl">
+            <div className="absolute -mr-16 -mt-16 right-0 top-0 h-32 w-32 rounded-full bg-brand-600/20 blur-3xl" />
+            <p className="relative z-10 mb-6 text-center text-lg font-black uppercase tracking-tighter">
+              {content.ui.resultCta}
+            </p>
             {!submitted ? (
               <form
                 onSubmit={(e) => {
@@ -237,30 +208,36 @@ export default function Calculator({ lang }: { lang: Locale }) {
                   console.log("Lead captured:", { email, city, profile, housing });
                   setSubmitted(true);
                 }}
-                className="flex flex-col sm:flex-row gap-3 relative z-10"
+                className="relative z-10 flex flex-col gap-3 sm:flex-row"
               >
                 <input
                   type="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder={ui.placeholder}
-                  className="flex-1 px-6 py-4 rounded bg-white/10 border-none text-white placeholder:text-gray-500 focus:ring-2 focus:ring-brand-600 outline-none transition font-medium"
+                  placeholder={content.ui.placeholder}
+                  className="flex-1 rounded border-none bg-white/10 px-6 py-4 font-medium text-white outline-none transition placeholder:text-gray-500 focus:ring-2 focus:ring-brand-600"
                 />
                 <button
                   type="submit"
-                  className="bg-brand-600 text-white font-black px-8 py-4 rounded hover:bg-brand-700 transition uppercase tracking-widest text-xs active:scale-95 shadow-lg shadow-brand-600/20"
+                  className="rounded bg-brand-600 px-8 py-4 text-xs font-black uppercase tracking-widest text-white shadow-lg shadow-brand-600/20 transition active:scale-95 hover:bg-brand-700"
                 >
-                  {ui.send}
+                  {content.ui.send}
                 </button>
               </form>
             ) : (
-              <p className="text-center text-accent-yellow font-black uppercase tracking-widest text-sm relative z-10">{ui.success}</p>
+              <p className="relative z-10 text-center text-sm font-black uppercase tracking-widest text-accent-yellow">
+                {content.ui.success}
+              </p>
             )}
           </div>
 
-          <button onClick={handleReset} className="text-[10px] font-black text-gray-400 hover:text-brand-600 mt-10 block mx-auto uppercase tracking-[0.3em] transition-colors">
-             {ui.back}
+          <button
+            type="button"
+            onClick={reset}
+            className="mx-auto mt-10 block text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 transition-colors hover:text-brand-600"
+          >
+            {content.ui.back}
           </button>
         </div>
       )}

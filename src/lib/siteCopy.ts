@@ -37,7 +37,7 @@ export type CalculatorPageContent = {
   relatedLinks: { href: string; label: string }[];
   toolTitle: string;
   toolBody: string;
-  comparisonLabels: { badge: string; solo: string; couple: string; family: string };
+  comparisonLabels: { badge: string; solo: string; couple: string; family: string; reveal: string };
   costCards: { label: string; city: "madrid" | "barcelona" | "valencia" }[];
 };
 
@@ -744,10 +744,11 @@ export const calculatorPageContent: Localized<CalculatorPageContent> = {
     toolBody:
       "Depois do contexto editorial, a ferramenta permite refinar o cálculo por cidade e perfil em poucos cliques.",
     comparisonLabels: {
-      badge: "Solo",
+      badge: "Custo Solo",
       solo: "Solo",
       couple: "Casal",
       family: "Família",
+      reveal: "Simular agora",
     },
     costCards: [
       { label: "Madrid", city: "madrid" },
@@ -814,10 +815,11 @@ export const calculatorPageContent: Localized<CalculatorPageContent> = {
     toolBody:
       "Después del contexto editorial, la herramienta permite afinar el cálculo por ciudad y perfil en pocos clics.",
     comparisonLabels: {
-      badge: "Solo",
+      badge: "Coste Solo",
       solo: "Solo",
       couple: "Pareja",
       family: "Familia",
+      reveal: "Simular ahora",
     },
     costCards: [
       { label: "Madrid", city: "madrid" },
@@ -884,10 +886,11 @@ export const calculatorPageContent: Localized<CalculatorPageContent> = {
     toolBody:
       "After the editorial context, the tool lets users refine the estimate by city and profile in a few clicks.",
     comparisonLabels: {
-      badge: "Solo",
+      badge: "Solo Cost",
       solo: "Solo",
       couple: "Couple",
       family: "Family",
+      reveal: "Simulate now",
     },
     costCards: [
       { label: "Madrid", city: "madrid" },

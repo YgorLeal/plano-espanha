@@ -148,7 +148,7 @@ export default function CalculadoraPage({ params }: { params: { lang: Locale } }
             </div>
           </div>
 
-          <div className="rounded-[2rem] border border-gray-200 bg-gray-950 p-8 text-white shadow-2xl shadow-gray-900/30">
+          <div className="relative rounded-[2rem] border border-gray-200 bg-gray-950 p-8 text-white shadow-2xl shadow-gray-900/30">
             <div className="text-[10px] font-black uppercase tracking-[0.28em] text-brand-300">
               {content.benefitsTitle}
             </div>
@@ -161,33 +161,48 @@ export default function CalculadoraPage({ params }: { params: { lang: Locale } }
                       {content.comparisonLabels.badge}
                     </span>
                   </div>
-                  <div className="mt-4 grid grid-cols-3 gap-2 text-center">
-                    <div className="rounded-2xl bg-white/8 p-3">
+                  <div className="mt-4 grid grid-cols-3 gap-2 text-center relative group">
+                    <div className="rounded-2xl bg-white/8 p-3 blur-[2px] opacity-40 transition-all group-hover:blur-none group-hover:opacity-100">
                       <div className="text-[9px] font-black uppercase tracking-[0.22em] text-gray-400">
                         {content.comparisonLabels.solo}
                       </div>
                       <div className="mt-1 text-lg font-black">€{city.solo}</div>
                     </div>
-                    <div className="rounded-2xl bg-white/8 p-3">
+                    <div className="rounded-2xl bg-white/8 p-3 blur-[3px] opacity-40 transition-all group-hover:blur-none group-hover:opacity-100">
                       <div className="text-[9px] font-black uppercase tracking-[0.22em] text-gray-400">
                         {content.comparisonLabels.couple}
                       </div>
                       <div className="mt-1 text-lg font-black">€{city.couple}</div>
                     </div>
-                    <div className="rounded-2xl bg-white/8 p-3">
+                    <div className="rounded-2xl bg-white/8 p-3 blur-[4px] opacity-40 transition-all group-hover:blur-none group-hover:opacity-100">
                       <div className="text-[9px] font-black uppercase tracking-[0.22em] text-gray-400">
                         {content.comparisonLabels.family}
                       </div>
                       <div className="mt-1 text-lg font-black">€{city.family}</div>
                     </div>
+                    
+                    <div className="absolute inset-0 flex items-center justify-center opacity-100 transition-opacity group-hover:opacity-0 pointer-events-none">
+                       <div className="rounded-full bg-brand-600/90 px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-white backdrop-blur-sm">
+                          {content.comparisonLabels.reveal}
+                       </div>
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
+
+            <div className="mt-8">
+              <Link 
+                href="#ferramenta"
+                className="flex w-full items-center justify-center rounded-2xl bg-brand-600 py-4 text-xs font-black uppercase tracking-[0.22em] text-white transition hover:bg-brand-700 shadow-lg shadow-brand-500/20"
+              >
+                {content.comparisonLabels.reveal}
+              </Link>
+            </div>
           </div>
         </div>
 
-        <div className="mt-14 rounded-[2rem] border border-gray-200 bg-white p-8 shadow-xl">
+        <div className="mt-14 rounded-[2rem] border border-gray-200 bg-white p-8 shadow-xl" id="ferramenta">
           <div className="grid gap-8 lg:grid-cols-2">
             <div>
               <h2 className="text-2xl font-black uppercase tracking-tighter text-gray-900">{content.methodTitle}</h2>

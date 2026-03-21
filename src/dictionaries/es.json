@@ -71,7 +71,10 @@
     "title": "Blog",
     "subtitle": "Guías y consejos para tu mudanza a España",
     "readMore": "Leer más",
-    "backToBlog": "Volver al blog"
+    "backToBlog": "Volver al blog",
+    "allCategories": "Todas las categorías",
+    "next": "Siguiente",
+    "previous": "Anterior"
   },
   "footer": {
     "description": "Herramientas gratuitas para brasileños que quieren planificar su mudanza a España con claridad y seguridad.",

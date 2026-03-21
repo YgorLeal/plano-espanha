@@ -71,7 +71,10 @@
     "title": "Blog",
     "subtitle": "Guides and tips for your move to Spain",
     "readMore": "Read more",
-    "backToBlog": "Back to blog"
+    "backToBlog": "Back to blog",
+    "allCategories": "All Categories",
+    "next": "Next",
+    "previous": "Previous"
   },
   "footer": {
     "description": "Free tools for Brazilians who want to plan their move to Spain with clarity and confidence.",

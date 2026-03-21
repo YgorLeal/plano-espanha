@@ -105,7 +105,7 @@ Muita gente confunde os dois. São caminhos diferentes:
 |---|---|---|
 | **Prazo de residência** | 2 anos contínuos | 5 meses (até dez/2025) |
 | **Prazo para solicitar** | Permanente (sempre disponível) | Abril a junho de 2026 |
-| **Quem pode** | Qualquer estrangeiro irregular | Quem já estava na Espanha antes de 31/12/2025 |
+| **Quem pode** | Qualquer estrangeiro irregular | Quem já estava na Espanha antes de 31/12/2023 |
 | **Resultado** | Residência de 1 ano | Residência de 1 ano |
 
 Se você já estava na Espanha antes de dezembro de 2025 e tem como provar 5 meses de residência, a regularização extraordinária pode ser mais rápida. Leia nosso [guia completo sobre a regularização de 500 mil imigrantes](/pt/blog/regularizacao-extraordinaria-espanha-2026-500-mil/).

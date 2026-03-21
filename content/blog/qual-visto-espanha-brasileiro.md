@@ -49,8 +49,9 @@ A porta de entrada mais acessível. Permite estudar e trabalhar até 20h/semana.
 
 Se você já está na Espanha (mesmo irregularmente), existem vias de regularização:
 
-- **Arraigo social:** 3 anos de permanência + contrato de trabalho
+- **Arraigo social:** 2 anos de permanência + contrato de trabalho ou meios próprios
 - **Arraigo laboral:** 2 anos + comprovação de relação laboral
+- **Arraigo socioformativo:** 2 anos + compromisso de formação oficial
 - **Arraigo familiar:** parentesco com cidadão espanhol ou da UE
 
 ## Golden Visa

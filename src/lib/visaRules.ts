@@ -540,6 +540,46 @@ const routeMatchers: RouteMatcher[] = [
     ],
   },
   {
+    key: "extraordinary_2026",
+    title: {
+      pt: "Regularização Extraordinária 2026",
+      es: "Regularización Extraordinaria 2026",
+      en: "2026 Extraordinary Regularization",
+    },
+    summary: {
+      pt: "Para quem estava na Espanha em situação irregular antes de 31/12/2023. Processo simplificado com janela em 2026.",
+      es: "Para quienes estaban en España en situación irregular antes del 31/12/2023. Proceso simplificado con ventana en 2026.",
+      en: "For those in Spain irregularly before 12/31/2023. Simplified process with a 2026 window.",
+    },
+    checks: {
+      pt: ["Residência comprovada desde antes de 31/12/2023", "Pelo menos 5 meses de estadia", "Sem antecedentes criminais"],
+      es: ["Residencia acreditada desde antes del 31/12/2023", "Al menos 5 meses de estancia", "Sin antecedentes penales"],
+      en: ["Proven residence since before 12/31/2023", "At least 5 months of stay", "No criminal record"],
+    },
+    caution: {
+      pt: ["A janela de solicitação é curta (abril a junho de 2026).", "Exige provas documentais robustas de presença no país."],
+      es: ["La ventana de solicitud es corta (abril a junio de 2026).", "Exige pruebas documentales robustas de presencia en el país."],
+      en: ["The application window is short (April to June 2026).", "Requires robust documentary proof of presence in the country."],
+    },
+    score: (input) => {
+      let score = 0;
+      if (input.status === "irregular" && isInsideSpain(input)) score += 40;
+      if (input.monthsInSpain === "gte2y") score += 45; // Arrived before March 2024
+      if (input.objective === "regularize") score += 10;
+      return score;
+    },
+    reasons: (input, locale) => {
+      const m = copy[locale];
+      const reasons: string[] = [];
+      addIf(reasons, input.status === "irregular", m.irregular);
+      addIf(reasons, input.monthsInSpain === "gte2y", locale === "pt" ? "Você está na Espanha há mais de 2 anos (chegada antes de março/2024), o que sugere que pode cumprir o corte de dez/2023." : locale === "es" ? "Estás en España hace más de 2 años (llegada antes de marzo/2024), lo que sugiere que puedes cumplir el corte de dic/2023." : "You have been in Spain for over 2 years (arrived before March/2024), suggesting you might meet the Dec/2023 cutoff.");
+      return reasons;
+    },
+    sources: [
+      { label: { pt: "Guia da Regularização 2026", es: "Guía de Regularización 2026", en: "2026 Regularization Guide" }, href: "/pt/blog/regularizacao-extraordinaria-espanha-2026-500-mil" },
+    ],
+  },
+  {
     key: "arraigo",
     title: {
       pt: "Arraigo",

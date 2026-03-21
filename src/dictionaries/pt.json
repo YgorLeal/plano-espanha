@@ -71,7 +71,10 @@
     "title": "Blog",
     "subtitle": "Guias e dicas para sua mudança para a Espanha",
     "readMore": "Ler mais",
-    "backToBlog": "Voltar ao blog"
+    "backToBlog": "Voltar ao blog",
+    "allCategories": "Todas as categorias",
+    "next": "Próximo",
+    "previous": "Anterior"
   },
   "footer": {
     "description": "Ferramentas gratuitas para brasileiros que querem planejar sua mudança para a Espanha com clareza e segurança.",

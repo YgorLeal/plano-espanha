@@ -3,7 +3,7 @@ import { getAllPosts } from "@/lib/blogEdge";
 import { absoluteUrl } from "@/lib/seo";
 import { locales } from "@/lib/i18n";
 
-const staticRoutes = ["", "blog", "calculadora", "simulador"];
+const staticRoutes = ["", "blog", "calculadora", "simulador", "quem-somos"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticEntries: MetadataRoute.Sitemap = locales.flatMap((locale) =>

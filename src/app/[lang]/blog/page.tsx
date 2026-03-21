@@ -64,7 +64,12 @@ export default async function BlogPage({ params }: { params: { lang: Locale } })
             category: p.category,
           }))}
           lang={params.lang}
-          readMoreLabel={t.blog.readMore}
+          labels={{
+            readMore: t.blog.readMore,
+            allCategories: t.blog.allCategories,
+            next: t.blog.next,
+            previous: t.blog.previous,
+          }}
         />
       )}
     </section>

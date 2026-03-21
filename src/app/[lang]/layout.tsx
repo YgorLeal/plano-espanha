@@ -3,7 +3,7 @@ import "../globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Locale, locales } from "@/lib/i18n";
-import { siteName, siteUrl } from "@/lib/seo";
+import { siteName, siteUrl, toJsonLd } from "@/lib/seo";
 
 export async function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -25,6 +25,15 @@ export const metadata: Metadata = {
   },
 };
 
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: siteName,
+  url: siteUrl,
+  logo: `${siteUrl}/logo.png`,
+  sameAs: ["https://twitter.com/planoespanha"],
+};
+
 export default function LangLayout({
   children,
   params,
@@ -35,6 +44,10 @@ export default function LangLayout({
   return (
     <html lang={params.lang}>
       <body className="min-h-screen flex flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: toJsonLd(organizationSchema) }}
+        />
         <Header lang={params.lang} />
         <main className="flex-1">{children}</main>
         <Footer lang={params.lang} />

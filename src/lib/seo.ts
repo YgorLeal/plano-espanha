@@ -4,6 +4,7 @@ import { BlogPost } from "@/lib/blogEdge";
 
 export const siteUrl = "https://planoespanha.com";
 export const siteName = "Plano Espanha";
+const defaultOgImage = "/og-image.png";
 
 const localeLabels: Record<Locale, string> = {
   pt: "pt-BR",
@@ -58,11 +59,13 @@ export function buildPageMetadata({
       siteName,
       locale: localeLabels[locale],
       type: "website",
+      images: [{ url: defaultOgImage, width: 1200, height: 630, alt: siteName }],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      site: "@planoespanha",
     },
   };
 }
@@ -98,11 +101,13 @@ export function buildBlogPostMetadata({
       publishedTime: post.date,
       authors: [post.author],
       tags: post.tags,
+      images: [{ url: post.image || defaultOgImage, width: 1200, height: 630, alt: post.title }],
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.description,
+      site: "@planoespanha",
     },
   };
 }

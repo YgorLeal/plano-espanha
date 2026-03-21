@@ -25,9 +25,9 @@ Regularizar quem já está trabalhando (mesmo que informalmente) significa mais 
 
 Para se qualificar, você precisa cumprir **todos** estes requisitos:
 
-**1. Estar na Espanha antes de 31 de dezembro de 2025**
+**1. Estar na Espanha antes de 31 de dezembro de 2023**
 
-Esse é o corte. Se você chegou na Espanha depois de 1 de janeiro de 2026, você não se enquadra nesta regularização extraordinária.
+Esse é o corte. Se você chegou na Espanha depois de 1 de janeiro de 2024, você não se enquadra nesta regularização extraordinária.
 
 **2. Comprovar pelo menos 5 meses de residência contínua**
 
@@ -39,7 +39,7 @@ Cinco meses no mínimo, comprovados até a data da solicitação. Os documentos 
 - Recibos de aluguel, água, luz, internet
 - Faturas de serviços básicos
 
-**3. Ter pedido proteção internacional até 31/12/2025**
+**3. Ter pedido proteção internacional até 31/12/2023**
 
 Ou conseguir comprovar a permanência mínima de outra forma aceita pelo regulamento. Os detalhes finais do procedimento ainda estão sendo publicados.
 
@@ -118,9 +118,9 @@ Se você não atende aos requisitos — por exemplo, se chegou na Espanha em 202
 
 Muitos brasileiros que estão em situação irregular em outros países europeus — especialmente na Holanda e Irlanda — vieram para a Espanha nos últimos meses justamente por causa dessa perspectiva de regularização.
 
-Se você está nessa situação e já está na Espanha desde antes de dezembro de 2025, boa notícia: você provavelmente se enquadra.
+Se você está nessa situação e já está na Espanha desde antes de dezembro de 2023, boa notícia: você provavelmente se enquadra.
 
-Se ainda não veio, a regularização extraordinária já não serve para você (o corte é dezembro de 2025). Mas o arraigo social de 2 anos continua sendo uma opção real.
+Se ainda não veio, a regularização extraordinária já não serve para você (o corte é dezembro de 2023). Mas o arraigo social de 2 anos continua sendo uma opção real.
 
 ## E depois da regularização, quanto custa viver?
 
@@ -132,7 +132,7 @@ Use nossa [calculadora de custo de vida](/pt/calculadora/) para comparar cidades
 
 | O quê | Detalhe |
 |---|---|
-| **Quem pode** | Imigrantes na Espanha antes de 31/12/2025 |
+| **Quem pode** | Imigrantes na Espanha antes de 31/12/2023 |
 | **Tempo mínimo** | 5 meses de residência comprovada |
 | **Prazo para pedir** | Abril a junho de 2026 |
 | **Tempo de resposta** | 15 dias (provisória) / 3 meses (final) |

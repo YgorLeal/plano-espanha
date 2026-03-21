@@ -27,10 +27,7 @@ export default function Header({ lang }: { lang: Locale }) {
     <header className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         <Link href={`/${lang}`} className="flex items-center gap-2">
-          <img src="/logo.png" alt="Plano Espanha Logo" className="h-10 w-auto" />
-          <span className="text-2xl font-black text-gray-900 tracking-tighter uppercase font-heading hidden sm:block">
-            Plano<span className="text-brand-600">Espanha</span>
-          </span>
+          <img src="/logo.png" alt="Plano Espanha Logo" className="h-12 w-auto" />
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">

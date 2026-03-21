@@ -70,11 +70,23 @@ export default async function BlogPage({ params }: { params: { lang: Locale } })
                   {new Date(post.date).toLocaleDateString(params.lang)}
                 </span>
               </div>
-              <h2 className="text-xl font-bold text-gray-900 mb-2">{post.title}</h2>
-              <p className="text-gray-600 line-clamp-2">{post.description}</p>
-              <span className="text-brand-600 text-sm font-medium mt-3 inline-block">
-                {t.blog.readMore} →
-              </span>
+              <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-brand-600 transition-colors uppercase tracking-tight font-heading">{post.title}</h2>
+              <p className="text-gray-600 line-clamp-2 mb-6">{post.description}</p>
+              
+              <div className="flex items-center justify-between border-t border-gray-50 pt-4 mt-auto">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full overflow-hidden border border-gray-100 shadow-sm">
+                    <img src="/gabriela.jpg" alt="Gabriela Pontes" className="w-full h-full object-cover" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest block leading-none mb-1">Escrito por</span>
+                    <span className="text-xs font-bold text-gray-900 uppercase tracking-tight">Gabriela Pontes</span>
+                  </div>
+                </div>
+                <span className="text-brand-600 text-[10px] font-black uppercase tracking-[0.2em] group-hover:translate-x-1 transition-transform">
+                  {t.blog.readMore} →
+                </span>
+              </div>
             </Link>
           ))}
         </div>

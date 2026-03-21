@@ -52,21 +52,37 @@ export default async function BlogPost({
         ← {t.blog.backToBlog}
       </Link>
 
-      <div className="mb-8">
-        <div className="flex items-center gap-3 mb-3">
-          <span className="text-xs font-medium text-brand-600 bg-brand-50 px-3 py-1 rounded-full">
+      <div className="mb-12">
+        <div className="flex items-center gap-4 mb-8">
+          <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-brand-50 shadow-sm">
+            <img src="/gabriela.jpg" alt="Gabriela Pontes" className="w-full h-full object-cover" />
+          </div>
+          <div>
+            <span className="text-[10px] font-black text-brand-600 uppercase tracking-[0.2em] block mb-1">Autor</span>
+            <h3 className="text-lg font-black text-gray-900 uppercase tracking-tighter font-heading leading-none">Gabriela Pontes</h3>
+          </div>
+          <div className="h-10 w-px bg-gray-100 mx-2" />
+          <div className="text-left">
+            <span className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] block mb-1">Publicado em</span>
+            <span className="text-xs font-bold text-gray-500 uppercase tracking-tight">
+              {new Date(post.date).toLocaleDateString(params.lang)}
+            </span>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-3 mb-6">
+          <span className="text-[10px] font-black text-white bg-brand-600 px-3 py-1 uppercase tracking-widest">
             {post.category}
           </span>
-          <span className="text-xs text-gray-400">
-            {new Date(post.date).toLocaleDateString(params.lang)}
-          </span>
-          <span className="text-xs text-gray-400">• {post.author}</span>
         </div>
-        <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 leading-tight">
+        
+        <h1 className="text-4xl md:text-6xl font-black text-gray-900 leading-[1.1] uppercase tracking-tighter font-heading mb-6">
           {post.title}
         </h1>
         {post.description && (
-          <p className="text-lg text-gray-600 mt-3">{post.description}</p>
+          <p className="text-xl md:text-2xl text-gray-600 font-medium leading-relaxed italic border-l-4 border-brand-600 pl-6">
+            {post.description}
+          </p>
         )}
       </div>
 
